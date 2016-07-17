@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
-    <entity name="Chapter" syncable="YES">
+    <entity name="Chapter" representedClassName=".Chapter" syncable="YES">
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="is_first_chapter" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
@@ -10,12 +10,12 @@
         <relationship name="choice" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" inverseName="chapter" inverseEntity="Choice" syncable="YES"/>
         <relationship name="story" maxCount="1" deletionRule="Nullify" destinationEntity="Story" inverseName="chapter" inverseEntity="Story" syncable="YES"/>
     </entity>
-    <entity name="Choice" syncable="YES">
+    <entity name="Choice" representedClassName=".Choice" syncable="YES">
         <attribute name="chapter_id" attributeType="String" syncable="YES"/>
         <attribute name="text" attributeType="String" syncable="YES"/>
         <relationship name="chapter" maxCount="1" deletionRule="Nullify" destinationEntity="Chapter" inverseName="choice" inverseEntity="Chapter" syncable="YES"/>
     </entity>
-    <entity name="Story" syncable="YES">
+    <entity name="Story" representedClassName=".Story" syncable="YES">
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="rating" attributeType="String" syncable="YES"/>
