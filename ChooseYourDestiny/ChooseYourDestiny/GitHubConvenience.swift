@@ -10,6 +10,7 @@ import Foundation
 
 extension GitHubClient {
     
+    
     // list all authors
     func listAllAuthors(completionHandlerForListAllAuthors: (success: Bool, error: Errors?, authors: [String]?) -> Void) {
     
@@ -62,13 +63,89 @@ extension GitHubClient {
         }
     }
     
+    
+    // get story content
+    func getStoryContent(filePath: String, user: String, repo: String, completionHandlerForGetStoryContent: (success: Bool, error: Errors?, content: AnyObject?) -> Void) {
+        
+        getFileContent(filePath, user: user, repo: repo) { (success, error, content) in
+            
+            var parsedResult: AnyObject!
+            
+            if let error = error {
+                print(error)
+                completionHandlerForGetStoryContent(success: false, error: error, content: nil)
+                return
+            }
+            
+            if let content = content {
+                do {
+                    // turn into json object
+                    parsedResult = try NSJSONSerialization.JSONObjectWithData(content, options: .AllowFragments)
+                    completionHandlerForGetStoryContent(success: true, error: nil, content: parsedResult)
+                    return
+                } catch {
+                    completionHandlerForGetStoryContent(success: false, error: Errors.CouldNotConvertToJson, content: nil)
+                    return
+                }
+            } else {
+                // shouldn't happen if error isn't set
+                completionHandlerForGetStoryContent(success: false, error: Errors.InternalError, content: nil)
+            }
+            
+        }
+    }
+    
+    
     // list stories for author
+    func listStoriesForAuthor(user: String, completionHandlerForListStoriesForAuthor: (success: Bool, error: Errors?, storyNames: [String]?) -> Void) {
+        
+        // specify params to look for this author's stories
+        var parameters = [String:AnyObject]()
+        parameters[ParameterKeys.Query] = (ParameterValues.StorySearchTag + "+extension:" + ParameterValues.FileExtFilter + "+user:" + user) as AnyObject
+        
+        taskForGETMethod(Methods.SearchCode, parameters: parameters) { (result, error) in
+            
+            // 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                print(error)
+                completionHandlerForListStoriesForAuthor(success: false, error: Errors.NetworkError, storyNames: nil)
+            } else {
+                
+                // cast the result into an array of dictionaries
+                if let items = result["items"] as? [[String:AnyObject]] {
+                    
+                    var repoNames = [String]()
+                    
+                    // for every file in the file array
+                    for item in items {
+
+                        // if it matched the text within README.md
+                        // grab the repository name
+                        if let fname = item["name"] as? String where fname == Constants.TagFileName,
+                           let repo = item["repository"] as? [String:AnyObject],
+                           let repoName = repo["name"] as? String {
+                            
+                            // add it to the list of repositories for this author...
+                            repoNames.append(repoName)
+                        }
+                    }
+                    // success!!!
+                    completionHandlerForListStoriesForAuthor(success: true, error: nil, storyNames: repoNames)
+                    
+                } else {
+                    // something wrong with the response
+                    if let result = result as? String {
+                        print("something is wrong with the response: \(result)")
+                    }
+                    completionHandlerForListStoriesForAuthor(success: false, error: Errors.InvalidResponse, storyNames: nil)
+                }
+            }
+            
+        }
+    }
     
-    // get story
     
-    // get resource
-    
-    // get file content (everyone will call this)
+    // get file content
     func getFileContent(filePath: String, user: String, repo: String, completionHandlerForGetFileContent: (success: Bool, error: Errors?, content: NSData?) -> Void) {
         
         var pathOnly: String = ""
@@ -103,7 +180,7 @@ extension GitHubClient {
                 // cast the result into an array of dictionaries
                 if let files = result as? [[String:AnyObject]] {
                     
-                    // for ever file in the file array
+                    // for every file in the file array
                     for file in files {
                         
                         // if we find the file name that we're looking for, it has a valid url, and 
@@ -115,7 +192,7 @@ extension GitHubClient {
                             
                             // success!!!
                             completionHandlerForGetFileContent(success: true, error: nil, content: content)
-                            break;
+                            return
                         }
                     }
                     // didn't find the file

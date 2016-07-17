@@ -22,6 +22,7 @@ extension GitHubClient {
         static let AuthorsFileName = "authors.json"
         static let AuthorsRepoUserID = "jonathandgrubb"
         static let AuthorsRepoName = "ChooseYourDestiny-authors"
+        static let TagFileName = "README.md"
     }
     
     // MARK: Errors
@@ -34,6 +35,7 @@ extension GitHubClient {
         case InvalidFileFormat
         case CouldNotConvertToJson
         case InternalError
+        case InvalidResponse
     }
     
     // MARK: Methods
@@ -49,13 +51,16 @@ extension GitHubClient {
         static let DirName = "dir"
     }
     
-    // TODO: remove this
-    //struct URLKeyValues {
-    //}
-    
     // MARK: Flickr Parameter Keys
     struct ParameterKeys {
         static let Query = "q"
+    }
+    
+    // MARK: Flickr Parameter Values
+    struct ParameterValues {
+        static let StorySearchTag = "ChooseYourDestiny"
+        static let FileExtFilter = "md"
+        
     }
 
 }
