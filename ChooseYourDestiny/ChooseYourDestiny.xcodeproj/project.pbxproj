@@ -18,6 +18,7 @@
 		ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FFF1D3C0D0000D97F93 /* GitHubConvenience.swift */; };
 		ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF30011D3C0D1200D97F93 /* GitHubConstants.swift */; };
 		ABAF30041D3C0E7700D97F93 /* ClientCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF30031D3C0E7700D97F93 /* ClientCommon.swift */; };
+		ABAF30071D3C495700D97F93 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABAF30051D3C495700D97F93 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		ABAF2FFF1D3C0D0000D97F93 /* GitHubConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubConvenience.swift; sourceTree = "<group>"; };
 		ABAF30011D3C0D1200D97F93 /* GitHubConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubConstants.swift; sourceTree = "<group>"; };
 		ABAF30031D3C0E7700D97F93 /* ClientCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCommon.swift; sourceTree = "<group>"; };
+		ABAF30061D3C495700D97F93 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		ABAF2FF91D3C0C7800D97F93 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				ABAF30051D3C495700D97F93 /* Model.xcdatamodeld */,
 				ABAF2FFB1D3C0CBA00D97F93 /* Clients */,
 			);
 			name = Models;
@@ -306,6 +309,7 @@
 				ABAF2FFE1D3C0CEF00D97F93 /* GitHubClient.swift in Sources */,
 				ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */,
 				ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */,
+				ABAF30071D3C495700D97F93 /* Model.xcdatamodeld in Sources */,
 				ABAF30041D3C0E7700D97F93 /* ClientCommon.swift in Sources */,
 				ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */,
 				ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */,
@@ -554,6 +558,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ABAF30051D3C495700D97F93 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ABAF30061D3C495700D97F93 /* Model.xcdatamodel */,
+			);
+			currentVersion = ABAF30061D3C495700D97F93 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = ABAF2FC01D3C0AF200D97F93 /* Project object */;
 }
