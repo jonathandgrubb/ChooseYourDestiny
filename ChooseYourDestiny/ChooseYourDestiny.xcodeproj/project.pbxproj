@@ -17,6 +17,7 @@
 		ABAF2FFE1D3C0CEF00D97F93 /* GitHubClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FFD1D3C0CEF00D97F93 /* GitHubClient.swift */; };
 		ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FFF1D3C0D0000D97F93 /* GitHubConvenience.swift */; };
 		ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF30011D3C0D1200D97F93 /* GitHubConstants.swift */; };
+		ABAF30041D3C0E7700D97F93 /* ClientCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF30031D3C0E7700D97F93 /* ClientCommon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		ABAF2FFD1D3C0CEF00D97F93 /* GitHubClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubClient.swift; sourceTree = "<group>"; };
 		ABAF2FFF1D3C0D0000D97F93 /* GitHubConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubConvenience.swift; sourceTree = "<group>"; };
 		ABAF30011D3C0D1200D97F93 /* GitHubConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubConstants.swift; sourceTree = "<group>"; };
+		ABAF30031D3C0E7700D97F93 /* ClientCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCommon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		ABAF2FFB1D3C0CBA00D97F93 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				ABAF30031D3C0E7700D97F93 /* ClientCommon.swift */,
 				ABAF2FFC1D3C0CC500D97F93 /* GitHub */,
 			);
 			name = Clients;
@@ -303,6 +306,7 @@
 				ABAF2FFE1D3C0CEF00D97F93 /* GitHubClient.swift in Sources */,
 				ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */,
 				ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */,
+				ABAF30041D3C0E7700D97F93 /* ClientCommon.swift in Sources */,
 				ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */,
 				ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */,
 			);
