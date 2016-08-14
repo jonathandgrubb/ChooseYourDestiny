@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */; };
 		ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */; };
 		ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */; };
 		ABAF2FD11D3C0AF200D97F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABAF2FCF1D3C0AF200D97F93 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ABAF2FC81D3C0AF200D97F93 /* ChooseYourDestiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChooseYourDestiny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */,
+				ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				ABAF2FFE1D3C0CEF00D97F93 /* GitHubClient.swift in Sources */,
 				ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */,
 				ABAF300F1D3C50A100D97F93 /* Choice.swift in Sources */,
+				ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */,
 				ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */,
 				ABAF30071D3C495700D97F93 /* Model.xcdatamodeld in Sources */,
 				ABAF30151D3C517900D97F93 /* CoreDataStack.swift in Sources */,
