@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */; };
+		ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */; };
 		ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */; };
 		ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */; };
 		ABAF2FD11D3C0AF200D97F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABAF2FCF1D3C0AF200D97F93 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		ABAF2FC81D3C0AF200D97F93 /* ChooseYourDestiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChooseYourDestiny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */,
 				ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */,
+				ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */,
 				ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */,
 				ABAF30121D3C50A100D97F93 /* Chapter+CoreDataProperties.swift in Sources */,
+				ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */,
 				ABAF30111D3C50A100D97F93 /* Story.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
