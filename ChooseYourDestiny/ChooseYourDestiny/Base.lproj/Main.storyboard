@@ -144,50 +144,110 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7j8-tS-6jx">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7j8-tS-6jx">
                                 <rect key="frame" x="20" y="64" width="560" height="487"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2Z1-Uz-WNw">
-                                        <rect key="frame" x="0.0" y="0.0" width="537" height="1280"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="537" height="1350"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMh-Bp-CBB" userLabel="View1">
-                                                <rect key="frame" x="0.0" y="0.0" width="537" height="128"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="537" height="198"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HighSeas" translatesAutoresizingMaskIntoConstraints="NO" id="0hV-yU-RDN">
+                                                        <rect key="frame" x="8" y="8" width="128" height="128"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML8-QH-M4T">
+                                                        <rect key="frame" x="483" y="106" width="46" height="30"/>
+                                                        <state key="normal" title="GET"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBorder" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
+                                                                <color key="value" red="0.039215686270000001" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High Seas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-B0-ygd">
+                                                        <rect key="frame" x="170" y="8" width="143" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="jonathandgrubb &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6e0-2C-sda">
+                                                        <rect key="frame" x="170" y="37" width="143" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPl-y4-O1O">
+                                                        <rect key="frame" x="170" y="115" width="35" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RatedG" translatesAutoresizingMaskIntoConstraints="NO" id="1T5-AF-fzQ">
+                                                        <rect key="frame" x="206" y="117" width="16" height="16"/>
+                                                    </imageView>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1QT-1D-8ev">
+                                                        <rect key="frame" x="8" y="150" width="521" height="29"/>
+                                                        <segments>
+                                                            <segment title="Summary"/>
+                                                            <segment title="Authors"/>
+                                                            <segment title="History"/>
+                                                        </segments>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwy-uE-Sxa" userLabel="View2">
-                                                <rect key="frame" x="0.0" y="128" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="198" width="537" height="128"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Db9-J1-XRE" userLabel="View3">
-                                                <rect key="frame" x="0.0" y="256" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="326" width="537" height="128"/>
                                                 <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jkN-nf-gEN" userLabel="View4">
-                                                <rect key="frame" x="0.0" y="384" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="454" width="537" height="128"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XhK-7Q-u3G" userLabel="View5">
-                                                <rect key="frame" x="0.0" y="512" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="582" width="537" height="128"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xnU-5N-xKe" userLabel="View6">
-                                                <rect key="frame" x="0.0" y="640" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="710" width="537" height="128"/>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vr-Ip-36F" userLabel="View7">
-                                                <rect key="frame" x="0.0" y="768" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="838" width="537" height="128"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DGU-ht-cfS" userLabel="View8">
-                                                <rect key="frame" x="0.0" y="896" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="966" width="537" height="128"/>
                                                 <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcP-cP-aMT" userLabel="View9">
-                                                <rect key="frame" x="0.0" y="1024" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="1094" width="537" height="128"/>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jRa-mO-b0o" userLabel="View10">
-                                                <rect key="frame" x="0.0" y="1152" width="537" height="128"/>
+                                                <rect key="frame" x="0.0" y="1222" width="537" height="128"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                         </subviews>
@@ -330,4 +390,8 @@
             <point key="canvasLocation" x="-576" y="570"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HighSeas" width="1920" height="1920"/>
+        <image name="RatedG" width="2000" height="1738"/>
+    </resources>
 </document>
