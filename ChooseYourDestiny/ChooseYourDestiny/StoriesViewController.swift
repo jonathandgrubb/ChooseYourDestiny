@@ -55,7 +55,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch indexPath.row {
         case 0:
             cell.textLabel?.text = "High Seas"
-            cell.detailTextLabel?.text = "Started (200 chapters)"
+            cell.detailTextLabel?.text = "Not Started (200 chapters)"
         case 1:
             cell.textLabel?.text = "Adventure!"
             cell.detailTextLabel?.text = "Not Started (231 chapters)"
@@ -78,4 +78,40 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     //func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     //    return 150.0
     //}
+    
+    // swipe left options (start)
+    // http://stackoverflow.com/a/32586617
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let manage = UITableViewRowAction(style: .Normal, title: "Manage") { action, index in
+            print("manage button tapped")
+        }
+        manage.backgroundColor = UIColor.lightGrayColor()
+        
+        let remove = UITableViewRowAction(style: .Normal, title: "Remove") { action, index in
+            print("remove button tapped")
+        }
+        remove.backgroundColor = UIColor.redColor()
+        
+        return [remove, manage]
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // the cells you would like the actions to appear needs to be editable
+        // (allow editing of the rows representing books that have already been downloaded)
+        if (indexPath.section == 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // you need to implement this method too or you can't swipe to display the actions
+    }
+    // swipe left options (end)
+    
+    // go on to the Manage View
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("MangeStorySegue", sender: nil)
+    }
 }
