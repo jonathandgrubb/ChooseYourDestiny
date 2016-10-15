@@ -638,7 +638,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxT-7K-aWl">
                                                 <rect key="frame" x="0.0" y="128" width="560" height="133"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -653,24 +653,23 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="560" height="43"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eat-HF-XfK">
-                                                                    <rect key="frame" x="8" y="0.0" width="537" height="43"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                                </textView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VVo-i8-3W2">
+                                                                    <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottomMargin" secondItem="eat-HF-XfK" secondAttribute="bottom" constant="-8" id="06D-bz-MSw"/>
-                                                                <constraint firstItem="eat-HF-XfK" firstAttribute="top" secondItem="bau-sF-e1g" secondAttribute="topMargin" constant="-8" id="FzT-Fl-qjP"/>
-                                                                <constraint firstItem="eat-HF-XfK" firstAttribute="leading" secondItem="bau-sF-e1g" secondAttribute="leadingMargin" id="fxK-rb-deG"/>
-                                                                <constraint firstAttribute="trailingMargin" secondItem="eat-HF-XfK" secondAttribute="trailing" constant="7" id="tgp-S0-fVS"/>
+                                                                <constraint firstItem="VVo-i8-3W2" firstAttribute="top" secondItem="bau-sF-e1g" secondAttribute="topMargin" id="CH6-cr-dwv"/>
+                                                                <constraint firstItem="VVo-i8-3W2" firstAttribute="leading" secondItem="bau-sF-e1g" secondAttribute="leadingMargin" id="DgY-yb-Y2r"/>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="VVo-i8-3W2" secondAttribute="trailing" id="RQi-os-Ku7"/>
+                                                                <constraint firstAttribute="bottomMargin" secondItem="VVo-i8-3W2" secondAttribute="bottom" id="xUb-dj-XbX"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
-                                                            <outlet property="textView" destination="eat-HF-XfK" id="c2l-eB-eew"/>
-                                                            <segue destination="ADe-4q-1jx" kind="show" id="xKp-ib-vyg"/>
+                                                            <outlet property="label" destination="VVo-i8-3W2" id="rsq-Vv-foR"/>
+                                                            <segue destination="dsX-rj-ipJ" kind="show" id="EqA-Ej-lOb"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -709,6 +708,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9r-jF-h1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1152" y="1297"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Sht-UQ-7qC">
+            <objects>
+                <viewController id="dsX-rj-ipJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lw0-Rc-tEO"/>
+                        <viewControllerLayoutGuide type="bottom" id="jPj-Ra-p2F"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EtY-jB-nAH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gvr-Ih-epd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1844" y="1297"/>
         </scene>
         <!--Manage Story View Controller-->
         <scene sceneID="JKc-62-I4M">
@@ -1348,7 +1365,4 @@
         <image name="HighSeas" width="1920" height="1920"/>
         <image name="RatedG" width="2000" height="1738"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="g1a-QJ-ciq"/>
-    </inferredMetricsTieBreakers>
 </document>
