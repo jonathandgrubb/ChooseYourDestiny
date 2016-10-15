@@ -669,7 +669,7 @@
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="label" destination="VVo-i8-3W2" id="rsq-Vv-foR"/>
-                                                            <segue destination="dsX-rj-ipJ" kind="show" id="EqA-Ej-lOb"/>
+                                                            <segue destination="ADe-4q-1jx" kind="show" id="CYd-pv-FDT"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -1365,4 +1365,7 @@
         <image name="HighSeas" width="1920" height="1920"/>
         <image name="RatedG" width="2000" height="1738"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="g1a-QJ-ciq"/>
+    </inferredMetricsTieBreakers>
 </document>
