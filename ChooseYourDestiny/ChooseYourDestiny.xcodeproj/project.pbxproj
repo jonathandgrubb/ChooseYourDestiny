@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AB4B42CC1D7DDA0F00E6F9AE /* ManageStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B42CB1D7DDA0F00E6F9AE /* ManageStoryViewController.swift */; };
 		AB891D681DB278DB003E3E15 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D671DB278DB003E3E15 /* ReadingViewController.swift */; };
+		AB891D6A1DB281E5003E3E15 /* ChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D691DB281E5003E3E15 /* ChoiceCell.swift */; };
 		ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */; };
 		ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */; };
 		ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		AB4B42CB1D7DDA0F00E6F9AE /* ManageStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageStoryViewController.swift; sourceTree = "<group>"; };
 		AB891D671DB278DB003E3E15 /* ReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
+		AB891D691DB281E5003E3E15 /* ChoiceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceCell.swift; sourceTree = "<group>"; };
 		ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		ABAF2FC81D3C0AF200D97F93 /* ChooseYourDestiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChooseYourDestiny.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +184,7 @@
 				ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */,
 				AB4B42CB1D7DDA0F00E6F9AE /* ManageStoryViewController.swift */,
 				AB891D671DB278DB003E3E15 /* ReadingViewController.swift */,
+				AB891D691DB281E5003E3E15 /* ChoiceCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				ABAF300F1D3C50A100D97F93 /* Choice.swift in Sources */,
 				AB891D681DB278DB003E3E15 /* ReadingViewController.swift in Sources */,
 				ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */,
+				AB891D6A1DB281E5003E3E15 /* ChoiceCell.swift in Sources */,
 				ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */,
 				ABAF30071D3C495700D97F93 /* Model.xcdatamodeld in Sources */,
 				ABAF30151D3C517900D97F93 /* CoreDataStack.swift in Sources */,
