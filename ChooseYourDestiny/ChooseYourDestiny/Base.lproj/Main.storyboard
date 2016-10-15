@@ -622,7 +622,63 @@
                     <view key="view" contentMode="scaleToFill" id="TjT-3W-MOz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kgw-cB-9B8">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Aau-0o-pQq">
+                                        <rect key="frame" x="20" y="41" width="560" height="523"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HighSeas" translatesAutoresizingMaskIntoConstraints="NO" id="kA8-3c-tUf">
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="WSA-cV-I80"/>
+                                                </constraints>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxT-7K-aWl">
+                                                <rect key="frame" x="0.0" y="128" width="560" height="267"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. 
+
+Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UOn-db-IXy">
+                                                <rect key="frame" x="0.0" y="395" width="560" height="128"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sj1-f6-Vbr">
+                                                        <rect key="frame" x="0.0" y="28" width="560" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sj1-f6-Vbr" id="bau-sF-e1g">
+                                                            <rect key="frame" x="0.0" y="0.0" width="560" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Aau-0o-pQq" firstAttribute="leading" secondItem="Kgw-cB-9B8" secondAttribute="leading" constant="20" id="AmT-TW-Sbg"/>
+                                    <constraint firstItem="Aau-0o-pQq" firstAttribute="top" secondItem="Kgw-cB-9B8" secondAttribute="top" id="C6f-jS-zJS"/>
+                                    <constraint firstAttribute="bottom" secondItem="Aau-0o-pQq" secondAttribute="bottom" constant="-40" id="TrS-y3-ztb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Aau-0o-pQq" secondAttribute="trailing" constant="20" id="XBq-oc-6E1"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="XIg-Qp-4jk" firstAttribute="top" secondItem="Kgw-cB-9B8" secondAttribute="bottom" id="2eS-du-Bgu"/>
+                            <constraint firstAttribute="trailing" secondItem="Kgw-cB-9B8" secondAttribute="trailing" id="HhA-rp-dLg"/>
+                            <constraint firstItem="Kgw-cB-9B8" firstAttribute="top" secondItem="tai-xj-8nE" secondAttribute="bottom" id="IgJ-IG-oc4"/>
+                            <constraint firstItem="Aau-0o-pQq" firstAttribute="width" secondItem="TjT-3W-MOz" secondAttribute="width" constant="-40" id="ZTV-T3-Hnb"/>
+                            <constraint firstItem="Kgw-cB-9B8" firstAttribute="leading" secondItem="TjT-3W-MOz" secondAttribute="leading" id="Zsh-bl-fdg"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Vvn-eL-vPL"/>
                 </viewController>
