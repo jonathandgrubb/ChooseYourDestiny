@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AB891D681DB278DB003E3E15 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D671DB278DB003E3E15 /* ReadingViewController.swift */; };
 		AB891D6A1DB281E5003E3E15 /* ChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D691DB281E5003E3E15 /* ChoiceCell.swift */; };
+		AB891D6E1DB2CE31003E3E15 /* ControllerCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D6D1DB2CE31003E3E15 /* ControllerCommon.swift */; };
+		AB891D701DB2D1F8003E3E15 /* GitHubObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D6F1DB2D1F8003E3E15 /* GitHubObjects.swift */; };
 		ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */; };
 		ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */; };
 		ABAF2FD11D3C0AF200D97F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABAF2FCF1D3C0AF200D97F93 /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		AB891D671DB278DB003E3E15 /* ReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
 		AB891D691DB281E5003E3E15 /* ChoiceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceCell.swift; sourceTree = "<group>"; };
+		AB891D6D1DB2CE31003E3E15 /* ControllerCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerCommon.swift; sourceTree = "<group>"; };
+		AB891D6F1DB2D1F8003E3E15 /* GitHubObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubObjects.swift; sourceTree = "<group>"; };
 		ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		ABAF2FC81D3C0AF200D97F93 /* ChooseYourDestiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChooseYourDestiny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +112,14 @@
 				AB891D691DB281E5003E3E15 /* ChoiceCell.swift */,
 			);
 			name = CustomViews;
+			sourceTree = "<group>";
+		};
+		AB891D6C1DB2CE16003E3E15 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AB891D6D1DB2CE31003E3E15 /* ControllerCommon.swift */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		ABAF2FBF1D3C0AF200D97F93 = {
@@ -182,6 +194,7 @@
 		ABAF2FFA1D3C0C7E00D97F93 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AB891D6C1DB2CE16003E3E15 /* Common */,
 				ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */,
 				AB891D671DB278DB003E3E15 /* ReadingViewController.swift */,
 			);
@@ -203,6 +216,7 @@
 				ABAF2FFD1D3C0CEF00D97F93 /* GitHubClient.swift */,
 				ABAF2FFF1D3C0D0000D97F93 /* GitHubConvenience.swift */,
 				ABAF30011D3C0D1200D97F93 /* GitHubConstants.swift */,
+				AB891D6F1DB2D1F8003E3E15 /* GitHubObjects.swift */,
 			);
 			name = GitHub;
 			sourceTree = "<group>";
@@ -348,12 +362,14 @@
 				AB891D681DB278DB003E3E15 /* ReadingViewController.swift in Sources */,
 				AB891D6A1DB281E5003E3E15 /* ChoiceCell.swift in Sources */,
 				ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */,
+				AB891D701DB2D1F8003E3E15 /* GitHubObjects.swift in Sources */,
 				ABAF30071D3C495700D97F93 /* Model.xcdatamodeld in Sources */,
 				ABAF30151D3C517900D97F93 /* CoreDataStack.swift in Sources */,
 				ABAF30131D3C50A100D97F93 /* Chapter.swift in Sources */,
 				ABAF30041D3C0E7700D97F93 /* ClientCommon.swift in Sources */,
 				ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */,
 				ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */,
+				AB891D6E1DB2CE31003E3E15 /* ControllerCommon.swift in Sources */,
 				ABAF30121D3C50A100D97F93 /* Chapter+CoreDataProperties.swift in Sources */,
 				ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */,
 				ABAF30111D3C50A100D97F93 /* Story.swift in Sources */,

@@ -14,7 +14,38 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        //
+        // get a list of all stories that are available on GitHub
+        //
+        
+        // all authors
+        GitHubClient.sharedInstance().listAllAuthors { (success, error, authors) in
+            if let error = error {
+                print(error)
+                ControllerCommon.displayErrorDialog(self, message: "Could not get authors list from GitHub")
+                return
+            }
+            
+            if let authors = authors {
+                for author in authors {
+                    // all stories for the author
+                    GitHubClient.sharedInstance().listStoriesForAuthor("blah", completionHandlerForListStoriesForAuthor: { (success, error, storyNames) in
+                        if let error = error {
+                            print(error)
+                            ControllerCommon.displayErrorDialog(self, message: "Failed to get story list for author: \(author)")
+                        }
+                        
+                        
+                    })
+                }
+            } else {
+                print("problem with listAllAuthors()... returned no error but returned no authors")
+                ControllerCommon.displayErrorDialog(self, message: "Could not get authors list from GitHub")
+            }
+        }
+        
+        // exclude the list of what we've already downloaded
     }
     
     override func didReceiveMemoryWarning() {

@@ -63,6 +63,33 @@ extension GitHubClient {
         }
     }
     
+    // get story info
+    func getStoryInfo(filePath: String, user: String, repo: String, completionHandlerForGetStoryInfo: (success: Bool, error: Errors?, content: StoryInfo?) -> Void) {
+    
+        getStoryContent(filePath, user: user, repo: repo) { (success, error, content) in
+            
+            if let error = error {
+                print(error)
+                completionHandlerForGetStoryInfo(success: false, error: error, content: nil)
+                return
+            }
+            
+            if let content = content,
+               let story = content["story"] as? [String:AnyObject],
+               let title = story["name"] as? String,
+               let rating = story["rating"] as? String,
+               let chapters = story["chapters"] as? [String:AnyObject] {
+                
+                let info = StoryInfo(author: user, title: title, numChapters: chapters.count, rating: rating)
+                
+                completionHandlerForGetStoryInfo(success: true, error: nil, content: info)
+                
+            } else {
+                print("required content missing from story json : \(content)")
+                completionHandlerForGetStoryInfo(success: false, error: Errors.InvalidFileFormat, content: nil)
+            }
+        }
+    }
     
     // get story content
     func getStoryContent(filePath: String, user: String, repo: String, completionHandlerForGetStoryContent: (success: Bool, error: Errors?, content: AnyObject?) -> Void) {
