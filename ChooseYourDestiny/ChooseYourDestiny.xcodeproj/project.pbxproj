@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB4B42CC1D7DDA0F00E6F9AE /* ManageStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B42CB1D7DDA0F00E6F9AE /* ManageStoryViewController.swift */; };
 		AB891D681DB278DB003E3E15 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D671DB278DB003E3E15 /* ReadingViewController.swift */; };
 		AB891D6A1DB281E5003E3E15 /* ChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB891D691DB281E5003E3E15 /* ChoiceCell.swift */; };
-		ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */; };
 		ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */; };
 		ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */; };
-		ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */; };
 		ABAF2FD11D3C0AF200D97F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABAF2FCF1D3C0AF200D97F93 /* Main.storyboard */; };
 		ABAF2FD31D3C0AF200D97F93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABAF2FD21D3C0AF200D97F93 /* Assets.xcassets */; };
 		ABAF2FD61D3C0AF200D97F93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABAF2FD41D3C0AF200D97F93 /* LaunchScreen.storyboard */; };
@@ -51,14 +48,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AB4B42CB1D7DDA0F00E6F9AE /* ManageStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageStoryViewController.swift; sourceTree = "<group>"; };
 		AB891D671DB278DB003E3E15 /* ReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
 		AB891D691DB281E5003E3E15 /* ChoiceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceCell.swift; sourceTree = "<group>"; };
-		ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		ABAF2FC81D3C0AF200D97F93 /* ChooseYourDestiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChooseYourDestiny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ABAF2FD01D3C0AF200D97F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ABAF2FD21D3C0AF200D97F93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABAF2FD51D3C0AF200D97F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -108,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB891D6B1DB2C7AE003E3E15 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				AB891D691DB281E5003E3E15 /* ChoiceCell.swift */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
 		ABAF2FBF1D3C0AF200D97F93 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +133,7 @@
 		ABAF2FCA1D3C0AF200D97F93 /* ChooseYourDestiny */ = {
 			isa = PBXGroup;
 			children = (
+				AB891D6B1DB2C7AE003E3E15 /* CustomViews */,
 				ABAF2FFA1D3C0C7E00D97F93 /* Controllers */,
 				ABAF2FF91D3C0C7800D97F93 /* Models */,
 				ABAF2FCB1D3C0AF200D97F93 /* AppDelegate.swift */,
@@ -179,12 +182,8 @@
 		ABAF2FFA1D3C0C7E00D97F93 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				ABAF2FCD1D3C0AF200D97F93 /* ViewController.swift */,
-				ABA2DD591D5FC53C004F31F4 /* HomeViewController.swift */,
 				ABA2DD5B1D5FF53E004F31F4 /* StoriesViewController.swift */,
-				AB4B42CB1D7DDA0F00E6F9AE /* ManageStoryViewController.swift */,
 				AB891D671DB278DB003E3E15 /* ReadingViewController.swift */,
-				AB891D691DB281E5003E3E15 /* ChoiceCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -345,10 +344,8 @@
 				ABAF300E1D3C50A100D97F93 /* Choice+CoreDataProperties.swift in Sources */,
 				ABAF30101D3C50A100D97F93 /* Story+CoreDataProperties.swift in Sources */,
 				ABAF2FFE1D3C0CEF00D97F93 /* GitHubClient.swift in Sources */,
-				ABAF2FCE1D3C0AF200D97F93 /* ViewController.swift in Sources */,
 				ABAF300F1D3C50A100D97F93 /* Choice.swift in Sources */,
 				AB891D681DB278DB003E3E15 /* ReadingViewController.swift in Sources */,
-				ABA2DD5A1D5FC53C004F31F4 /* HomeViewController.swift in Sources */,
 				AB891D6A1DB281E5003E3E15 /* ChoiceCell.swift in Sources */,
 				ABAF30001D3C0D0000D97F93 /* GitHubConvenience.swift in Sources */,
 				ABAF30071D3C495700D97F93 /* Model.xcdatamodeld in Sources */,
@@ -358,7 +355,6 @@
 				ABAF30021D3C0D1200D97F93 /* GitHubConstants.swift in Sources */,
 				ABAF2FCC1D3C0AF200D97F93 /* AppDelegate.swift in Sources */,
 				ABAF30121D3C50A100D97F93 /* Chapter+CoreDataProperties.swift in Sources */,
-				AB4B42CC1D7DDA0F00E6F9AE /* ManageStoryViewController.swift in Sources */,
 				ABA2DD5C1D5FF53E004F31F4 /* StoriesViewController.swift in Sources */,
 				ABAF30111D3C50A100D97F93 /* Story.swift in Sources */,
 			);

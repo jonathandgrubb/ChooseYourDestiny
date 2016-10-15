@@ -117,8 +117,8 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     // swipe left options (end)
     
-    // go on to the Manage View
+    // download or read
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("MangeStorySegue", sender: nil)
+        print("either download a story or read a story")
     }
 }

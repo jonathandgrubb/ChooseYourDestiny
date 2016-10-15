@@ -10,6 +10,5 @@ import UIKit
 
 class ChoiceCell : UITableViewCell {
     
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var label: UILabel!
 }
