@@ -38,7 +38,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KMx-Gj-8Zl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="354" y="1298"/>
+            <point key="canvasLocation" x="354" y="1297.9999999999998"/>
         </scene>
         <!--Manage Your Library-->
         <scene sceneID="lGX-3V-2RS">
@@ -124,13 +124,106 @@
                     <view key="view" contentMode="scaleToFill" id="OCd-KD-wpf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQD-9x-crb" userLabel="View1">
+                                <rect key="frame" x="20" y="64" width="560" height="178"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HighSeas" translatesAutoresizingMaskIntoConstraints="NO" id="Qk0-yE-q04">
+                                        <rect key="frame" x="0.0" y="8" width="128" height="128"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="c7f-N5-o8n"/>
+                                            <constraint firstAttribute="width" constant="128" id="o0N-xu-itq"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="High Seas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEI-FF-8vS">
+                                        <rect key="frame" x="136" y="8" width="143" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoj-bi-9ps">
+                                        <rect key="frame" x="136" y="115" width="35" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="RatedG" translatesAutoresizingMaskIntoConstraints="NO" id="Oxa-at-Iad">
+                                        <rect key="frame" x="172" y="117" width="16" height="16"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtr-ak-bAl">
+                                        <rect key="frame" x="514" y="106" width="46" height="30"/>
+                                        <state key="normal" title="GET"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBorder" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
+                                                <color key="value" red="0.039215686270000001" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="jonathandgrubb &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf0-l4-diG">
+                                        <rect key="frame" x="136" y="37" width="143" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="DtZ-Lr-n7Y">
+                                        <rect key="frame" x="0.0" y="144" width="560" height="29"/>
+                                        <segments>
+                                            <segment title="Summary"/>
+                                            <segment title="Authors"/>
+                                            <segment title="History"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="DtZ-Lr-n7Y" secondAttribute="trailing" id="0VU-bK-kbW"/>
+                                    <constraint firstItem="Oxa-at-Iad" firstAttribute="leading" secondItem="qoj-bi-9ps" secondAttribute="trailing" constant="1" id="Ei4-NC-JoI"/>
+                                    <constraint firstItem="cf0-l4-diG" firstAttribute="top" secondItem="ZEI-FF-8vS" secondAttribute="bottom" constant="8" id="K7b-ve-Coo"/>
+                                    <constraint firstItem="cf0-l4-diG" firstAttribute="leading" secondItem="Qk0-yE-q04" secondAttribute="trailing" constant="8" id="NpP-0U-IDw"/>
+                                    <constraint firstItem="DtZ-Lr-n7Y" firstAttribute="leading" secondItem="bQD-9x-crb" secondAttribute="leading" id="UE0-oc-6o6"/>
+                                    <constraint firstItem="Qk0-yE-q04" firstAttribute="leading" secondItem="bQD-9x-crb" secondAttribute="leading" id="WfZ-T9-Gxv"/>
+                                    <constraint firstAttribute="height" constant="178" id="XF5-CL-AVQ"/>
+                                    <constraint firstItem="DtZ-Lr-n7Y" firstAttribute="top" secondItem="Qk0-yE-q04" secondAttribute="bottom" constant="8" id="aoq-Cn-GMn"/>
+                                    <constraint firstItem="Qk0-yE-q04" firstAttribute="top" secondItem="bQD-9x-crb" secondAttribute="top" constant="8" id="cWf-gZ-xF3"/>
+                                    <constraint firstItem="qoj-bi-9ps" firstAttribute="leading" secondItem="Qk0-yE-q04" secondAttribute="trailing" constant="8" id="fbj-du-IWc"/>
+                                    <constraint firstItem="qoj-bi-9ps" firstAttribute="top" secondItem="cf0-l4-diG" secondAttribute="bottom" constant="57" id="gig-ab-9F6"/>
+                                    <constraint firstItem="Oxa-at-Iad" firstAttribute="top" secondItem="cf0-l4-diG" secondAttribute="bottom" constant="59" id="jlI-wl-uAr"/>
+                                    <constraint firstItem="ZEI-FF-8vS" firstAttribute="top" secondItem="bQD-9x-crb" secondAttribute="top" constant="8" id="l9I-ap-LkS"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jtr-ak-bAl" secondAttribute="trailing" id="s7j-oF-8Tn"/>
+                                    <constraint firstItem="DtZ-Lr-n7Y" firstAttribute="top" secondItem="Jtr-ak-bAl" secondAttribute="bottom" constant="8" id="wB9-si-YTy"/>
+                                    <constraint firstItem="ZEI-FF-8vS" firstAttribute="leading" secondItem="Qk0-yE-q04" secondAttribute="trailing" constant="8" id="zHA-b9-bKL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="secondarySelectedControlColor" catalog="System" colorSpace="catalog"/>
+                        <constraints>
+                            <constraint firstItem="bVe-nR-C7O" firstAttribute="top" secondItem="bQD-9x-crb" secondAttribute="bottom" constant="309" id="3Oe-Il-6Vn"/>
+                            <constraint firstItem="bQD-9x-crb" firstAttribute="top" secondItem="OUO-8t-oBK" secondAttribute="bottom" id="SoH-vE-r5p"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="bQD-9x-crb" secondAttribute="leading" id="pcx-kX-mu4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bQD-9x-crb" secondAttribute="trailing" id="zoI-Li-4Pr"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gCN-5I-Lfx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sfR-w2-20D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="1298"/>
+            <point key="canvasLocation" x="1152" y="1297"/>
         </scene>
         <!--Manage Story View Controller-->
         <scene sceneID="JKc-62-I4M">
@@ -166,22 +259,6 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML8-QH-M4T">
-                                                        <rect key="frame" x="483" y="106" width="46" height="30"/>
-                                                        <state key="normal" title="GET"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="4"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBorder" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                                <integer key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
-                                                                <color key="value" red="0.039215686270000001" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High Seas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-B0-ygd">
                                                         <rect key="frame" x="170" y="8" width="143" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -211,6 +288,22 @@
                                                             <segment title="History"/>
                                                         </segments>
                                                     </segmentedControl>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML8-QH-M4T">
+                                                        <rect key="frame" x="483" y="106" width="46" height="30"/>
+                                                        <state key="normal" title="GET"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBorder" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
+                                                                <color key="value" red="0.039215686270000001" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                             </view>
@@ -291,10 +384,11 @@
                             <constraint firstItem="ctB-Dt-QoX" firstAttribute="top" secondItem="7j8-tS-6jx" secondAttribute="bottom" id="sKh-dk-HAg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="URB-YN-LC7"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2sJ-aP-iur" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1930" y="570"/>
+            <point key="canvasLocation" x="1929.9999999999998" y="570"/>
         </scene>
         <!--Home-->
         <scene sceneID="Xn5-jb-LE3">
