@@ -13,6 +13,7 @@ extension GitHubClient {
     // MARK: GitHub
     struct StoryInfo {
         var author : String
+        var repo : String
         var title : String
         var numChapters : Int
         var rating : String

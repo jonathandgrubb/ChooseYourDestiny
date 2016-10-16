@@ -229,7 +229,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let pic_path = story["pic_path"] as? String
                 let vid_path = story["vid_path"] as? String
                 
-                let s = Story(id: id, name: name, rating: rating, summary: summary, pic_path: pic_path, vid_path: vid_path, context: self.fetchedResultsController!.managedObjectContext)
+                let s = Story(author: info.author, repo: info.repo, id: id, name: name, rating: rating, summary: summary, pic_path: pic_path, vid_path: vid_path, context: self.fetchedResultsController!.managedObjectContext)
                 
                 // Chapters
                 for chapter in chapters {

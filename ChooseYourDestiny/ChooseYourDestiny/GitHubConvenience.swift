@@ -67,7 +67,7 @@ extension GitHubClient {
     func getStoryInfoForAllStoriesAndAuthors(completionHandlerForGetStoryInfoForAllStoriesAndAuthors: (success: Bool, error: Errors?, info: [StoryInfo]?) -> Void) {
         
         // until we figure out how to synchronously do all these async calls...
-        let storyInfo = StoryInfo(author: "jonathandgrubb", title: "PrototypeStory", numChapters: 5, rating: "G")
+        let storyInfo = StoryInfo(author: "jonathandgrubb", repo: "PrototypeStory", title: "Night At The Forgotten Castle", numChapters: 5, rating: "G")
         completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: true, error: nil, info: [storyInfo])
         
         /*
@@ -160,7 +160,7 @@ extension GitHubClient {
                let rating = story["rating"] as? String,
                let chapters = story["chapters"] as? [String:AnyObject] {
                 
-                let info = StoryInfo(author: user, title: title, numChapters: chapters.count, rating: rating)
+                let info = StoryInfo(author: user, repo: repo, title: title, numChapters: chapters.count, rating: rating)
                 
                 completionHandlerForGetStoryInfo(success: true, error: nil, info: info)
                 return
