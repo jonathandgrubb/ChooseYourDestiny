@@ -25,7 +25,7 @@ class GitHubClient : NSObject {
         //params[Constants.FlickrParameterKeys.NoJSONCallback] = Constants.FlickrParameterValues.DisableJSONCallback
         
         // 2/3. Build the URL, Configure the request
-        let request = NSMutableURLRequest(URL: parseURLFromParameters(params))
+        let request = NSMutableURLRequest(URL: parseURLFromParameters(params, withPathExtension: method))
         
         // 4. Make the request
         let task = session.dataTaskWithRequest(request) { (data, response, error) in

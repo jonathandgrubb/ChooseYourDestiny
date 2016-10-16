@@ -295,7 +295,7 @@ extension GitHubClient {
                         // if we find the file name that we're looking for, it has a valid url, and 
                         // we are able to get its content...
                         if let fname = file["name"] as? String where fname == fileName,
-                           let contentUrlStr = file["downloadUrl"] as? String,
+                           let contentUrlStr = file["download_url"] as? String,
                            let contentUrl = NSURL(string: contentUrlStr),
                            let content = NSData(contentsOfURL: contentUrl) {
                             
@@ -303,6 +303,7 @@ extension GitHubClient {
                             completionHandlerForGetFileContent(success: true, error: nil, content: content)
                             return
                         }
+                        print("didn't find a match: \(file)")
                     }
                     // didn't find the file
                     completionHandlerForGetFileContent(success: false, error: Errors.FileNotFound, content: nil)
