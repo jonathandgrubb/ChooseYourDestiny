@@ -78,7 +78,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("Number of fetchedObjects: \(fetchedResultsController!.fetchedObjects!.count)")
         
         // exclude the list of what we've already downloaded
-        // TODO
         if let fc = fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
                 for story in fo {
@@ -109,7 +108,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             // downloaded stories
-            //return 3
             if let fc = fetchedResultsController, let fo = fc.fetchedObjects {
                 return fo.count
             }
@@ -132,40 +130,16 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         
         if (indexPath.section == 0) {
-            /*
-            switch indexPath.row {
-            case 0:
-                cell.textLabel?.text = "High Seas"
-                cell.detailTextLabel?.text = "Started (200 chapters)"
-            case 1:
-                cell.textLabel?.text = "Adventure!"
-                cell.detailTextLabel?.text = "Not Started (231 chapters)"
-            case 2:
-                cell.textLabel?.text = "Meh - the Novel"
-                cell.detailTextLabel?.text = "Started (109 chapters)"
-            default:
-                cell.textLabel?.text = "Undefined"
-            }
-            */
+
             // Get the story
             let story = fetchedResultsController?.objectAtIndexPath(indexPath) as! Story
             
             // Sync Story -> cell
             cell.textLabel?.text = story.name
             cell.detailTextLabel?.text = "Not Started (\(story.chapter!.count) chapters) Rated: \(story.rating!)"
+        
         } else {
-            /*
-            switch indexPath.row {
-            case 0:
-                cell.textLabel?.text = "High Seas II"
-                cell.detailTextLabel?.text = "Not On Device (109 chapters)"
-            case 1:
-                cell.textLabel?.text = "The Octopus"
-                cell.detailTextLabel?.text = "Not On Device (351 chapters)"
-            default:
-                cell.textLabel?.text = "Undefined"
-            }
-            */
+ 
             if let remoteStories = remoteStories {
                 let story = remoteStories[indexPath.row]
                 cell.textLabel?.text = story.title
