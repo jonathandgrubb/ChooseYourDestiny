@@ -270,6 +270,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                 }
                 
+                // saving now in case the app is closed before the autosave
+                do {
+                    try self.fetchedResultsController!.managedObjectContext.save()
+                } catch {
+                    print("save didn't work")
+                }
                 return
                 
             } else {
