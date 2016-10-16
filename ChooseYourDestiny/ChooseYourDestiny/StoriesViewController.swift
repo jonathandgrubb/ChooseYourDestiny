@@ -200,7 +200,8 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 executeSearch()
                 // TODO: just send the current chapter and maybe the author/repo to the reading tab
                 
-                // go to the reading tab
+                // go to the reading tab (and start at the beginning of the story)
+                GitHubClient.sharedInstance().startAtBeginning = true
                 self.tabBarController?.selectedIndex = 1
                 
             } else {

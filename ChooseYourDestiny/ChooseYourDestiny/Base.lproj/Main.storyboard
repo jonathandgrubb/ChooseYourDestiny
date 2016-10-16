@@ -203,6 +203,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Vvn-eL-vPL"/>
                     <connections>
+                        <outlet property="scrollView" destination="Kgw-cB-9B8" id="Dyl-vw-Djc"/>
                         <outlet property="tableView" destination="UOn-db-IXy" id="6bd-ei-j9v"/>
                     </connections>
                 </viewController>

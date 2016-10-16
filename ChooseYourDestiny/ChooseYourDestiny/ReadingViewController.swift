@@ -11,6 +11,7 @@ import UIKit
 class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,17 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView?.rowHeight = UITableViewAutomaticDimension
         tableView?.estimatedRowHeight = 140
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // pop the navigation stack if this was navigated to as a new story (and scroll to the top)
+        if let startOver = GitHubClient.sharedInstance().startAtBeginning where startOver == true {
+            self.navigationController?.popToRootViewControllerAnimated(true)
+            self.scrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+            GitHubClient.sharedInstance().startAtBeginning = false
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
