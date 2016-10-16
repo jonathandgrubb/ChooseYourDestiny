@@ -12,7 +12,10 @@ class GitHubClient : NSObject {
     
     // shared session
     var session = NSURLSession.sharedSession()
-    var startAtBeginning : Bool?  // TODO: put this in a better place
+    
+    // TODO: put this in a better place
+    var startAtBeginning : Bool?
+    var currentChapter : Chapter?
     
     // GET
     func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
