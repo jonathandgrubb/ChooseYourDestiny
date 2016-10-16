@@ -79,6 +79,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // exclude the list of what we've already downloaded
         // TODO
+        if let fc = fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+                for story in fo {
+                    self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
+                }
+            }
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
