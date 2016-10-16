@@ -192,16 +192,16 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("read a story")
             
             // create fetch request for the selected story
-            if let fc = fetchedResultsController, let story = fc.objectAtIndexPath(indexPath) as? Story {
+            if let story = fetchedResultsController!.objectAtIndexPath(indexPath) as? Story {
 
                 let fr = NSFetchRequest(entityName: "Chapter")
                 fr.sortDescriptors = []
-                let pred = NSPredicate(format: "(is_first_chapter = \"true\") AND (story = %@)", story)
+                let pred = NSPredicate(format: "(is_first_chapter = %@) AND (story = %@)", "true", story)
                 fr.predicate = pred
                 executeSearch()
                 
                 // go to the reading tab (and start at the beginning of the story)
-                if let chapters = fc.fetchedObjects as? [Chapter] { // where chapters.count == 1 {
+                if let chapters = fetchedResultsController!.fetchedObjects as? [Chapter] where chapters.count == 1 {
                     GitHubClient.sharedInstance().startAtBeginning = true
                     GitHubClient.sharedInstance().currentChapter = chapters[0]
                     self.tabBarController?.selectedIndex = 1
