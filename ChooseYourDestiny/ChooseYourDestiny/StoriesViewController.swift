@@ -11,41 +11,23 @@ import UIKit
 class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    var remoteStories : [GitHubClient.StoryInfo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //
         // get a list of all stories that are available on GitHub
-        //
-        
-        // all authors
-        GitHubClient.sharedInstance().listAllAuthors { (success, error, authors) in
-            if let error = error {
-                print(error)
-                ControllerCommon.displayErrorDialog(self, message: "Could not get authors list from GitHub")
-                return
-            }
-            
-            if let authors = authors {
-                for author in authors {
-                    // all stories for the author
-                    GitHubClient.sharedInstance().listStoriesForAuthor("blah", completionHandlerForListStoriesForAuthor: { (success, error, storyNames) in
-                        if let error = error {
-                            print(error)
-                            ControllerCommon.displayErrorDialog(self, message: "Failed to get story list for author: \(author)")
-                        }
-                        
-                        
-                    })
+        GitHubClient.sharedInstance().getStoryInfoForAllStoriesAndAuthors { (success, error, info) in
+            if success, let info = info {
+                self.remoteStories = info
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
                 }
-            } else {
-                print("problem with listAllAuthors()... returned no error but returned no authors")
-                ControllerCommon.displayErrorDialog(self, message: "Could not get authors list from GitHub")
             }
         }
         
         // exclude the list of what we've already downloaded
+        // TODO
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,9 +49,15 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
+            // downloaded stories
             return 3
         } else {
-            return 2
+            // undownloaded stories
+            if let remoteStories = remoteStories {
+                return remoteStories.count
+            } else {
+                return 0
+            }
         }
         
     }
@@ -98,6 +86,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.textLabel?.text = "Undefined"
             }
         } else {
+            /*
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "High Seas II"
@@ -107,6 +96,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.detailTextLabel?.text = "Not On Device (351 chapters)"
             default:
                 cell.textLabel?.text = "Undefined"
+            }
+            */
+            if let remoteStories = remoteStories { //where remoteStories[indexPath.row] != nil {
+                let story = remoteStories[indexPath.row]
+                cell.textLabel?.text = story.title
+                cell.detailTextLabel?.text = "Not On Device (\(story.numChapters) chapters) Rated: \(story.rating)"
             }
         }
         

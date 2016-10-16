@@ -63,14 +63,94 @@ extension GitHubClient {
         }
     }
     
-    // get story info
-    func getStoryInfo(filePath: String, user: String, repo: String, completionHandlerForGetStoryInfo: (success: Bool, error: Errors?, content: StoryInfo?) -> Void) {
-    
-        getStoryContent(filePath, user: user, repo: repo) { (success, error, content) in
+    // get story info for all stories and authors
+    func getStoryInfoForAllStoriesAndAuthors(completionHandlerForGetStoryInfoForAllStoriesAndAuthors: (success: Bool, error: Errors?, info: [StoryInfo]?) -> Void) {
+        
+        // until we figure out how to synchronously do all these async calls...
+        let storyInfo = StoryInfo(author: "jonathandgrubb", title: "PrototypeStory", numChapters: 5, rating: "G")
+        completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: true, error: nil, info: [storyInfo])
+        
+        /*
+        var status : Errors?
+        var allStoriesInfo = [StoryInfo]()
+        
+        // ********** all authors ********** (failure covered)
+        listAllAuthors { (success, error, authors) in
+            
+            func bailOut {
+                if allStoriesInfo.count > 0 {
+                    completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: true, error: status, info: allStoriesInfo)
+                } else {
+                    completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: false, error: status, info: nil)
+                }
+            }
             
             if let error = error {
                 print(error)
-                completionHandlerForGetStoryInfo(success: false, error: error, content: nil)
+                completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: false, error: error, info: nil)
+                return
+            }
+            
+            if let authors = authors {
+                
+                for author in authors {
+                    
+                    // ********** all stories for the author **********
+                    self.listStoriesForAuthor(author) { (success, error, storyNames) in
+                        if let error = error {
+                            // just note the problem...
+                            print(error)
+                            status = error
+
+                        } else if let storyNames = storyNames {
+                            
+                            for storyName in storyNames {
+                            
+                                // ********** get story info for each story **********
+                                self.getStoryInfo(author, repo: storyName) { (success, error, info) in
+                                    if let error = error {
+                                        // just note the problem...
+                                        print(error)
+                                        status = error
+                                    } else if let info = info {
+                                        allStoriesInfo.append(info)
+                                    } else {
+                                        print("problem with getStoryInfo... returned no error but returned no info for author: \(author) storyName: \(storyName)")
+                                        bailOut()
+                                        status = Errors.InternalError
+                                    }
+                                    
+                                }
+                            }
+                            
+                        } else {
+                            // just note the problem...
+                            print("problem with listStoriesForAuthor... returned no error but returned no stories for author: \(author)")
+                            status = Errors.InternalError
+                        }
+                    } // listStoriesforAuthor
+                } // for authors
+                
+                
+            } else {
+                print("problem with listAllAuthors()... returned no error but returned no authors")
+                completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: false, error: Errors.InternalError, info: nil)
+                return
+            }
+        }
+        
+        */
+        
+    }
+    
+    // get story info
+    func getStoryInfo(user: String, repo: String, completionHandlerForGetStoryInfo: (success: Bool, error: Errors?, info: StoryInfo?) -> Void) {
+    
+        getStoryContent(user, repo: repo) { (success, error, content) in
+            
+            if let error = error {
+                print(error)
+                completionHandlerForGetStoryInfo(success: false, error: error, info: nil)
                 return
             }
             
@@ -82,19 +162,21 @@ extension GitHubClient {
                 
                 let info = StoryInfo(author: user, title: title, numChapters: chapters.count, rating: rating)
                 
-                completionHandlerForGetStoryInfo(success: true, error: nil, content: info)
+                completionHandlerForGetStoryInfo(success: true, error: nil, info: info)
+                return
                 
             } else {
                 print("required content missing from story json : \(content)")
-                completionHandlerForGetStoryInfo(success: false, error: Errors.InvalidFileFormat, content: nil)
+                completionHandlerForGetStoryInfo(success: false, error: Errors.InvalidFileFormat, info: nil)
+                return
             }
         }
     }
     
     // get story content
-    func getStoryContent(filePath: String, user: String, repo: String, completionHandlerForGetStoryContent: (success: Bool, error: Errors?, content: AnyObject?) -> Void) {
+    func getStoryContent(user: String, repo: String, completionHandlerForGetStoryContent: (success: Bool, error: Errors?, content: AnyObject?) -> Void) {
         
-        getFileContent(filePath, user: user, repo: repo) { (success, error, content) in
+        getFileContent(Constants.StoryFileName, user: user, repo: repo) { (success, error, content) in
             
             var parsedResult: AnyObject!
             

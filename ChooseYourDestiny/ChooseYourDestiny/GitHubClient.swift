@@ -12,6 +12,7 @@ class GitHubClient : NSObject {
     
     // shared session
     var session = NSURLSession.sharedSession()
+    //var allStoriesInfo = [StoryInfo]()
     
     // GET
     func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {

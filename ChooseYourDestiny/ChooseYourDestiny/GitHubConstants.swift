@@ -20,6 +20,7 @@ extension GitHubClient {
     // MARK: Constants
     struct Constants {
         static let AuthorsFileName = "authors.json"
+        static let StoryFileName = "story.json"
         static let AuthorsRepoUserID = "jonathandgrubb"
         static let AuthorsRepoName = "ChooseYourDestiny-authors"
         static let TagFileName = "README.md"
