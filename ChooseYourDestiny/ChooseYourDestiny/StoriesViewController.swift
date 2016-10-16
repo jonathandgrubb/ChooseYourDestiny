@@ -101,16 +101,17 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             // downloaded stories
-            return 3
+            //return 3
+            if let fc = fetchedResultsController, let fo = fc.fetchedObjects {
+                return fo.count
+            }
         } else {
             // undownloaded stories
             if let remoteStories = remoteStories {
                 return remoteStories.count
-            } else {
-                return 0
             }
         }
-        
+        return 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -123,6 +124,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         
         if (indexPath.section == 0) {
+            /*
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "High Seas"
@@ -136,6 +138,13 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             default:
                 cell.textLabel?.text = "Undefined"
             }
+            */
+            // Get the story
+            let story = fetchedResultsController?.objectAtIndexPath(indexPath) as! Story
+            
+            // Sync Story -> cell
+            cell.textLabel?.text = story.name
+            cell.detailTextLabel?.text = "Not Started (\(story.chapter!.count) chapters) Rated: \(story.rating!)"
         } else {
             /*
             switch indexPath.row {
