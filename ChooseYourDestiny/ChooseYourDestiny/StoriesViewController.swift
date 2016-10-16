@@ -158,7 +158,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.textLabel?.text = "Undefined"
             }
             */
-            if let remoteStories = remoteStories { //where remoteStories[indexPath.row] != nil {
+            if let remoteStories = remoteStories {
                 let story = remoteStories[indexPath.row]
                 cell.textLabel?.text = story.title
                 cell.detailTextLabel?.text = "Not On Device (\(story.numChapters) chapters) Rated: \(story.rating)"
@@ -280,17 +280,36 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 
                 // saving now in case the app is closed before the autosave
-                do {
-                    try self.fetchedResultsController!.managedObjectContext.save()
-                } catch {
-                    print("save didn't work")
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.executeSearch()
+                    do {
+                        try self.fetchedResultsController!.managedObjectContext.save()
+                        print("Saved")
+                    } catch {
+                        print("save didn't work")
+                    }
                 }
+                
+                // remove this downloaded story from the "available on GitHub" list
+                self.removeStoryFromAvailableList(info.author, repo: info.repo)
+                
                 return
                 
             } else {
                 print("required Story content missing from story json : \(content)")
                 ControllerCommon.displayErrorDialog(self, message: "Required Story content missing from story json")
                 return
+            }
+        }
+    }
+    
+    func removeStoryFromAvailableList(author: String, repo: String) {
+        // http://stackoverflow.com/a/31883396/4611868
+        if self.remoteStories != nil,
+           let ind = self.remoteStories!.indexOf({$0.author == author && $0.repo == repo}) {
+            self.remoteStories!.removeAtIndex(ind)
+            dispatch_async(dispatch_get_main_queue()) {
+                self.tableView.reloadData()
             }
         }
     }

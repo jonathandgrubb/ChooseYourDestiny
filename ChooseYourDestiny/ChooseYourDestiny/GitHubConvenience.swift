@@ -303,7 +303,7 @@ extension GitHubClient {
                             completionHandlerForGetFileContent(success: true, error: nil, content: content)
                             return
                         }
-                        print("didn't find a match: \(file)")
+                        //print("didn't find a match: \(file)")
                     }
                     // didn't find the file
                     completionHandlerForGetFileContent(success: false, error: Errors.FileNotFound, content: nil)
