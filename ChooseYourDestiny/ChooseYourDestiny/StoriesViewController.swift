@@ -188,8 +188,27 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     // download or read
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.section == 0) {
+            
             print("read a story")
+            
+            // create fetch request for the selected story
+            if let fc = fetchedResultsController, let story = fc.objectAtIndexPath(indexPath) as? Story {
+                let fr = NSFetchRequest(entityName: "Story")
+                fr.sortDescriptors = []
+                let pred = NSPredicate(format: "(author = %@) AND (repo = %@)", story.author!, story.repo!)
+                fr.predicate = pred
+                executeSearch()
+                // TODO: just send the current chapter and maybe the author/repo to the reading tab
+                
+                // go to the reading tab
+                self.tabBarController?.selectedIndex = 1
+                
+            } else {
+                print("could not find the story")
+            }
+            
         } else {
+            
             print("download a story")
             if let remoteStories = remoteStories {
                 loadRemoteStory(remoteStories[indexPath.row])
@@ -295,5 +314,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
+    
     
 }
