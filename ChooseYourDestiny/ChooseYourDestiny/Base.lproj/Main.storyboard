@@ -203,8 +203,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="Vvn-eL-vPL"/>
                     <connections>
+                        <outlet property="image" destination="kA8-3c-tUf" id="lSF-VZ-j1V"/>
                         <outlet property="scrollView" destination="Kgw-cB-9B8" id="Dyl-vw-Djc"/>
                         <outlet property="tableView" destination="UOn-db-IXy" id="6bd-ei-j9v"/>
+                        <outlet property="textView" destination="zxT-7K-aWl" id="Yxt-iT-qGI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9r-jF-h1r" userLabel="First Responder" sceneMemberID="firstResponder"/>

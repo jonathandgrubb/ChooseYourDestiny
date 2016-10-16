@@ -7,29 +7,96 @@
 //
 
 import UIKit
+import CoreData
 
-class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var textView: UITextView!
     
+    // MARK:  - Properties
+    var fetchedResultsController : NSFetchedResultsController? {
+        didSet{
+            // Whenever the frc changes, we execute the search and
+            // reload the table
+            fetchedResultsController?.delegate = self
+            executeSearch()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    init(fetchedResultsController fc : NSFetchedResultsController) {
+        fetchedResultsController = fc
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    // Do not worry about this initializer. I has to be implemented
+    // because of the way Swift interfaces with an Objective C
+    // protocol called NSArchiving. It's not relevant.
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    func executeSearch(){
+        if let fc = fetchedResultsController{
+            do{
+                try fc.performFetch()
+            }catch let e as NSError{
+                print("Error while trying to perform a search: \n\(e)\n\(fetchedResultsController)")
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         tableView?.rowHeight = UITableViewAutomaticDimension
         tableView?.estimatedRowHeight = 140
+        
+        // Create the FetchedResultsController (might need this to get the choices)
+        //fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+        //                                                      managedObjectContext: stack.context, 
+        //                                                      sectionNameKeyPath: nil, cacheName: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // pop the navigation stack if this was navigated to as a new story (and scroll to the top)
+        // if this was navigated to as a new story
         if let startOver = GitHubClient.sharedInstance().startAtBeginning where startOver == true {
+            
+            // pop the navigation stack
             self.navigationController?.popToRootViewControllerAnimated(true)
+            
+            // scroll to the top
             self.scrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+            
             GitHubClient.sharedInstance().startAtBeginning = false
         }
+        
+        // load the data for the current chapter
+        // TODO
+        if let chapter = GitHubClient.sharedInstance().currentChapter {
+            // text
+            textView.text = chapter.text!
+            
+            // choices
+            
+            // picture
+            //if let pic_data = chapter.picture {
+            //    image.setValue(pic_data, forKey: "data")
+            //} else if let pic_path = chapter.picture_path,
+            //          let imageURL = NSURL(string: pic_path),
+            //          let imageData = NSData(contentsOfURL: imageURL) {
+            //    image.setValue(imageData, forKey: "data")
+            //}
+        }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
