@@ -22,6 +22,8 @@ extension Story {
     @NSManaged var name: String?
     @NSManaged var picture_path: String?
     @NSManaged var video_path: String?
+    @NSManaged var author: String?
+    @NSManaged var repo: String?
     @NSManaged var chapter: NSSet?
 
 }
