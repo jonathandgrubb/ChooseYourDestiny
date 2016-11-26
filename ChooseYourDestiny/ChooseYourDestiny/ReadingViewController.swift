@@ -16,6 +16,9 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var textView: UITextView!
     
+    var currentChapter: Chapter?
+    var currentChoices = [Choice]()
+    
     // MARK:  - Properties
     var fetchedResultsController : NSFetchedResultsController? {
         didSet{
@@ -79,23 +82,17 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             GitHubClient.sharedInstance().startAtBeginning = false
         }
         
-        // old approach to remember what chapter we are on
-//        if let chapter = GitHubClient.sharedInstance().currentChapter {
-//            // text
-//            textView.text = chapter.text!
-//            
-//        }
-        
         // load the data for the current chapter
         if let fc = fetchedResultsController,
            let chapters = fc.fetchedObjects as? [Chapter]
            where chapters.count > 0 {
             
-            // text
-            textView.text = chapters[0].text
-
-            // choices
+            // set the current chapter
+            currentChapter = chapters[0]
             
+            // text
+            textView.text = currentChapter!.text
+
             // picture
             //if let pic_data = chapter.picture {
             //    image.setValue(pic_data, forKey: "data")
@@ -104,11 +101,34 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             //          let imageData = NSData(contentsOfURL: imageURL) {
             //    image.setValue(imageData, forKey: "data")
             //}
+
+            // load the choices for this chapter
+            let fr = NSFetchRequest(entityName: "Choice")
+            fr.sortDescriptors = []
+            let pred = NSPredicate(format: "(chapter = %@)", currentChapter!)
+            fr.predicate = pred
+            // Create FetchedResultsController (is this better than creating a new one?)
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+                                                managedObjectContext:fetchedResultsController!.managedObjectContext,
+                                                sectionNameKeyPath: nil,
+                                                cacheName: nil)
+            executeSearch()
+            
+            if let choices = fetchedResultsController!.fetchedObjects as? [Choice] {
+                for choice in choices {
+                    currentChoices.append(choice)
+                }
+            }
+
         }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        if let chapter = currentChapter, let choices = chapter.choice {
+            return choices.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -120,23 +140,10 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.label?.numberOfLines = 0
         cell.label?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         
-        switch indexPath.row {
-        case 0:
-            let message = "Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!! Grab one of the blahs!!!"
-            //cell.textView.text = message
-            cell.label?.text = message
-        case 1:
-            let message = "Get that other blah!!!"
-            //cell.textView.text = message
-            cell.label?.text = message
-        case 2:
-            let message = "Don't open that door!!!"
-            //cell.textView.text = message
-            cell.label?.text = message
-        default:
-            let message = "Run back out the door screaming!!!"
-            //cell.textView.text = message
-            cell.label?.text = message
+        // get the text for the choice
+        let choice = currentChoices[indexPath.row]
+        if let text = choice.text {
+            cell.label?.text = text
         }
         
         return cell;
