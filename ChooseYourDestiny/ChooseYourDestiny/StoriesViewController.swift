@@ -86,6 +86,9 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
+        // http://stackoverflow.com/a/11937989/4611868
+        // get rid of the empty rows at the bottom of the choices
+        tableView?.tableFooterView = UIView()
     }
     
     override func didReceiveMemoryWarning() {

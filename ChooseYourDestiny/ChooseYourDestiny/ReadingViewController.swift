@@ -127,6 +127,14 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return nil
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let chapter = currentChapter, let choices = chapter.choice {
             return choices.count
