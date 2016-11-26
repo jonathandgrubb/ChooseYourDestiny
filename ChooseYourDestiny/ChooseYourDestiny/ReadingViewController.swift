@@ -79,12 +79,21 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             GitHubClient.sharedInstance().startAtBeginning = false
         }
         
+        // old approach to remember what chapter we are on
+//        if let chapter = GitHubClient.sharedInstance().currentChapter {
+//            // text
+//            textView.text = chapter.text!
+//            
+//        }
+        
         // load the data for the current chapter
-        // TODO
-        if let chapter = GitHubClient.sharedInstance().currentChapter {
-            // text
-            textView.text = chapter.text!
+        if let fc = fetchedResultsController,
+           let chapters = fc.fetchedObjects as? [Chapter]
+           where chapters.count > 0 {
             
+            // text
+            textView.text = chapters[0].text
+
             // choices
             
             // picture
@@ -96,7 +105,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             //    image.setValue(imageData, forKey: "data")
             //}
         }
-        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
