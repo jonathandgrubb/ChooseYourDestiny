@@ -17,7 +17,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var textView: UITextView!
     
     var currentChapter: Chapter?
-    var nextChapterId: String?
     var currentChoices = [Choice]()
     
     // MARK:  - Properties
@@ -150,21 +149,24 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell;
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        nextChapterId = currentChoices[indexPath.row].chapter_id
-    }
+    //func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    //    nextChapterId = currentChoices[indexPath.row].chapter_id
+    //}
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
         if let readingVC = segue.destinationViewController as? ReadingViewController,
-           let chapter = currentChapter, let story = chapter.story, let chapterId = nextChapterId
+           let chapter = currentChapter, let story = chapter.story,
+           let selectedRowIndexPath = tableView.indexPathForSelectedRow,
+           let nextChapterId = currentChoices[selectedRowIndexPath.row].chapter_id
            where segue.identifier! == "NextReadingPage"{
             
+            // Create Fetch Reuqest for the next chapter
             let fr = NSFetchRequest(entityName: "Chapter")
             fr.sortDescriptors = []
-            let pred = NSPredicate(format: "(id = %@) AND (story = %@)", chapterId, story)
+            let pred = NSPredicate(format: "(id = %@) AND (story = %@)", nextChapterId, story)
             fr.predicate = pred
             
             // Create FetchedResultsController
@@ -175,6 +177,8 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             // Inject it into the readingVC
             readingVC.fetchedResultsController = fc
+        } else {
+            print("Wasn't able to set the fetch request for the next page")
         }
     }
 
