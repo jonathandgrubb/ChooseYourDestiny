@@ -208,8 +208,8 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 // Inject it into the notesVC
                 if let navController = self.tabBarController?.childViewControllers[1] as? UINavigationController,
-                   let storyVC = navController.viewControllers[0] as? ReadingViewController {
-                    storyVC.fetchedResultsController = fc
+                   let readingVC = navController.viewControllers[0] as? ReadingViewController {
+                    readingVC.fetchedResultsController = fc
                     GitHubClient.sharedInstance().startAtBeginning = true
                     self.tabBarController?.selectedIndex = 1
                 } else {

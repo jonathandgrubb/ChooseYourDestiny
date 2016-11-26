@@ -170,7 +170,7 @@
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="label" destination="VVo-i8-3W2" id="rsq-Vv-foR"/>
-                                                            <segue destination="ADe-4q-1jx" kind="show" id="CYd-pv-FDT"/>
+                                                            <segue destination="ADe-4q-1jx" kind="show" identifier="NextReadingPage" id="CYd-pv-FDT"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>

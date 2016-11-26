@@ -17,6 +17,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var textView: UITextView!
     
     var currentChapter: Chapter?
+    var nextChapterId: String?
     var currentChoices = [Choice]()
     
     // MARK:  - Properties
@@ -149,8 +150,32 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell;
     }
     
-    //func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //    let controller = ReadingViewController()
-    //    presentViewController(controller, animated: true, completion: nil)
-    //}
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        nextChapterId = currentChoices[indexPath.row].chapter_id
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        if let readingVC = segue.destinationViewController as? ReadingViewController,
+           let chapter = currentChapter, let story = chapter.story, let chapterId = nextChapterId
+           where segue.identifier! == "NextReadingPage"{
+            
+            let fr = NSFetchRequest(entityName: "Chapter")
+            fr.sortDescriptors = []
+            let pred = NSPredicate(format: "(id = %@) AND (story = %@)", chapterId, story)
+            fr.predicate = pred
+            
+            // Create FetchedResultsController
+            let fc = NSFetchedResultsController(fetchRequest: fr,
+                                                managedObjectContext:fetchedResultsController!.managedObjectContext,
+                                                sectionNameKeyPath: nil,
+                                                cacheName: nil)
+            
+            // Inject it into the readingVC
+            readingVC.fetchedResultsController = fc
+        }
+    }
+
 }
