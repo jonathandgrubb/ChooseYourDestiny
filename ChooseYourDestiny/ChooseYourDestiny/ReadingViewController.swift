@@ -61,6 +61,9 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView?.rowHeight = UITableViewAutomaticDimension
         tableView?.estimatedRowHeight = 140
         
+        // http://stackoverflow.com/a/11937989/4611868
+        tableView?.tableFooterView = UIView()
+        
         // Create the FetchedResultsController (might need this to get the choices)
         //fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
         //                                                      managedObjectContext: stack.context, 
