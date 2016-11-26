@@ -62,6 +62,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView?.estimatedRowHeight = 140
         
         // http://stackoverflow.com/a/11937989/4611868
+        // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
         
         // Create the FetchedResultsController (might need this to get the choices)
@@ -148,6 +149,10 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let text = choice.text {
             cell.label?.text = text
         }
+        
+        // http://stackoverflow.com/a/19570000/4611868
+        // remove the extra height from the tableview
+        tableView.sizeToFit()
         
         return cell;
     }
