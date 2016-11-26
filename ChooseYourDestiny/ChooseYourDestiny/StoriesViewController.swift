@@ -198,16 +198,32 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 fr.sortDescriptors = []
                 let pred = NSPredicate(format: "(is_first_chapter = %@) AND (story = %@)", "true", story)
                 fr.predicate = pred
-                executeSearch()
                 
-                // go to the reading tab (and start at the beginning of the story)
-                if let chapters = fetchedResultsController!.fetchedObjects as? [Chapter] where chapters.count == 1 {
+                // insert the fetch request into the reading tab's controller
+                // Create FetchedResultsController
+                let fc = NSFetchedResultsController(fetchRequest: fr,
+                                                    managedObjectContext:fetchedResultsController!.managedObjectContext,
+                                                    sectionNameKeyPath: nil,
+                                                    cacheName: nil)
+                
+                // Inject it into the notesVC
+                if let navController = self.tabBarController?.childViewControllers[1] as? UINavigationController,
+                   let storyVC = navController.viewControllers[0] as? ReadingViewController {
+                    storyVC.fetchedResultsController = fc
                     GitHubClient.sharedInstance().startAtBeginning = true
-                    GitHubClient.sharedInstance().currentChapter = chapters[0]
                     self.tabBarController?.selectedIndex = 1
                 } else {
-                    print("could not get the first chapter")
+                    print("could not find the story view controller")
                 }
+                
+                // go to the reading tab (and start at the beginning of the story)
+//                if let chapters = fetchedResultsController!.fetchedObjects as? [Chapter] where chapters.count == 1 {
+//                    GitHubClient.sharedInstance().startAtBeginning = true
+//                    GitHubClient.sharedInstance().currentChapter = chapters[0]
+//                    self.tabBarController?.selectedIndex = 1
+//                } else {
+//                    print("could not get the first chapter")
+//                }
                 
             } else {
                 print("could not find the story")
