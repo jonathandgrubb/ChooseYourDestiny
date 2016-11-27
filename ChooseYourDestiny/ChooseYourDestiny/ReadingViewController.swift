@@ -100,11 +100,22 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             // picture
             //if let pic_data = chapter.picture {
             //    image.setValue(pic_data, forKey: "data")
-            //} else if let pic_path = chapter.picture_path,
-            //          let imageURL = NSURL(string: pic_path),
-            //          let imageData = NSData(contentsOfURL: imageURL) {
-            //    image.setValue(imageData, forKey: "data")
-            //}
+            //} else 
+            if let pic_path = currentChapter!.picture_path,
+               let imageURL = NSURL(string: pic_path),
+               let imageData = NSData(contentsOfURL: imageURL) {
+                
+                print("retrieving image data from web")
+                
+                // set the image for the chapter
+                image.image = UIImage(data: imageData)
+                
+                // save image data to the model
+                currentChapter!.setValue(imageData, forKey: "picture")
+                
+            } else {
+                print("image data not found or could not be parsed")
+            }
 
             // load the choices for this chapter
             let fr = NSFetchRequest(entityName: "Choice")
