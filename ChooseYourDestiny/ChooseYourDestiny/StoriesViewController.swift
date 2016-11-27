@@ -72,19 +72,8 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         GitHubClient.sharedInstance().getStoryInfoForAllStoriesAndAuthors { (success, error, info) in
             if success, let info = info {
                 dispatch_async(dispatch_get_main_queue()) {
-
                     self.allRemoteStories = info
-                    self.displayedRemoteStories = info
-                    
-                    // exclude from the "available" list what we've already downloaded
-                    if let fc = self.fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
-                        for story in fo {
-                            self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
-                        }
-                    }
-                    
-                    self.tableView.reloadData()
-
+                    self.createAvailableList()
                 }
             }
         }
@@ -92,6 +81,18 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // http://stackoverflow.com/a/11937989/4611868
         // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
+    }
+    
+    func createAvailableList() {
+        displayedRemoteStories = allRemoteStories
+        
+        // exclude from the "available" list what we've already downloaded
+        if let fc = self.fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
+            for story in fo {
+                self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
+            }
+        }
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -172,6 +173,9 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                let story = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? Story {
                 context.deleteObject(story)
                 self.save()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.createAvailableList()
+                }
             }
         }
         remove.backgroundColor = UIColor.redColor()
@@ -316,6 +320,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 // remove this downloaded story from the "available on GitHub" list
                 self.removeStoryFromAvailableList(info.author, repo: info.repo)
+                
+                // reload the table
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
                 
                 return
                 
