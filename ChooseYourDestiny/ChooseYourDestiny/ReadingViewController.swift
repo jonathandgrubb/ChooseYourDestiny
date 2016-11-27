@@ -110,15 +110,36 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
             } else if let pic_path = currentChapter!.picture_path,
                let imageURL = NSURL(string: pic_path),
-               let imageData = NSData(contentsOfURL: imageURL) {
+               let imageData = NSData(contentsOfURL: imageURL)
+               where pic_path.hasPrefix("https") {
                 
-                print("retrieving image data from web")
+                print("retrieving image data from web (outside of GitHub)")
                 
                 // set the image for the chapter
                 image.image = UIImage(data: imageData)
                 
                 // save image data to the model
                 currentChapter!.setValue(imageData, forKey: "picture")
+                
+            } else if let pic_path = currentChapter!.picture_path,
+               let author = currentChapter!.story!.author,
+               let repo = currentChapter!.story!.repo {
+                
+                print("retrieving image data from GitHub repo")
+                
+                GitHubClient.sharedInstance().getStoryResource(pic_path, author: author, repo: repo) { (success, error, data) in
+                    if success == false {
+                        print("problem getting \(pic_path) from \(author)'s \(repo) repo")
+                    } else {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            // set the image for the chapter
+                            self.image.image = UIImage(data: data!)
+                            
+                            // save image data to the model
+                            self.currentChapter!.setValue(data!, forKey: "picture")
+                        }
+                    }
+                }
                 
             } else {
                 print("image data not found or could not be parsed")
