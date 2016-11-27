@@ -254,6 +254,29 @@ extension GitHubClient {
     }
     
     
+    // get story resource (picture, video, ...)
+    func getStoryResource(fileRelativePath: String, author: String, repo: String, completionHandlerForGetStoryResource: (success: Bool, error: Errors?, data: NSData?) -> Void) {
+        
+        getFileContent(fileRelativePath, user: author, repo: repo) { (success, error, content) in
+            
+            if let error = error {
+                print(error)
+                completionHandlerForGetStoryResource(success: false, error: error, data: nil)
+                return
+            }
+            
+            if content != nil {
+                completionHandlerForGetStoryResource(success: true, error: nil, data: content)
+            } else {
+                // shouldn't happen if error isn't set
+                completionHandlerForGetStoryResource(success: false, error: Errors.InternalError, data: nil)
+                return
+            }
+            
+        }
+    }
+
+    
     // get file content
     func getFileContent(filePath: String, user: String, repo: String, completionHandlerForGetFileContent: (success: Bool, error: Errors?, content: NSData?) -> Void) {
         
