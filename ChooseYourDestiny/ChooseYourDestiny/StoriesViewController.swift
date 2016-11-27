@@ -164,17 +164,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     // swipe left options (start)
     // http://stackoverflow.com/a/32586617
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let manage = UITableViewRowAction(style: .Normal, title: "Manage") { action, index in
-            print("manage button tapped")
-        }
-        manage.backgroundColor = UIColor.lightGrayColor()
-        
         let remove = UITableViewRowAction(style: .Normal, title: "Remove") { action, index in
             print("remove button tapped")
         }
         remove.backgroundColor = UIColor.redColor()
         
-        return [remove, manage]
+        return [remove]
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
