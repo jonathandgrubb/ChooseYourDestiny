@@ -84,6 +84,9 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.scrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
             
             GitHubClient.sharedInstance().startAtBeginning = false
+
+            // don't hide the image by default
+            image.hidden = false
         }
         
         // load the data for the current chapter
@@ -119,6 +122,9 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             } else {
                 print("image data not found or could not be parsed")
+                
+                // hide the image
+                image.hidden = true
             }
 
             // load the choices for this chapter
