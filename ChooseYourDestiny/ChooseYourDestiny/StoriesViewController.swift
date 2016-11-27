@@ -74,7 +74,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
                                                               managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
         
-        // see if we have any pins saved in CORE Data and load them onto the map as annotations
+        // see if we have any stories saved in CORE Data
         print("Number of fetchedObjects: \(fetchedResultsController!.fetchedObjects!.count)")
         
         // exclude the list of what we've already downloaded
