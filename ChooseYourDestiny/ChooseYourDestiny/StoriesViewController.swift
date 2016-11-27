@@ -12,7 +12,8 @@ import CoreData
 class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    var remoteStories : [GitHubClient.StoryInfo]?
+    var allRemoteStories : [GitHubClient.StoryInfo]?
+    var displayedRemoteStories : [GitHubClient.StoryInfo]?
     
     // MARK:  - Properties
     var fetchedResultsController : NSFetchedResultsController? {
@@ -72,7 +73,8 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             if success, let info = info {
                 dispatch_async(dispatch_get_main_queue()) {
 
-                    self.remoteStories = info
+                    self.allRemoteStories = info
+                    self.displayedRemoteStories = info
                     
                     // exclude from the "available" list what we've already downloaded
                     if let fc = self.fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
@@ -118,7 +120,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             // undownloaded stories
-            if let remoteStories = remoteStories {
+            if let remoteStories = displayedRemoteStories {
                 print("undownloaded stories count: \(remoteStories.count)")
                 return remoteStories.count
             }
@@ -147,7 +149,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         } else {
  
-            if let remoteStories = remoteStories {
+            if let remoteStories = displayedRemoteStories {
                 let story = remoteStories[indexPath.row]
                 cell.textLabel?.text = story.title
                 cell.detailTextLabel?.text = "Not On Device (\(story.numChapters) chapters) Rated: \(story.rating)"
@@ -169,7 +171,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let context = self.fetchedResultsController?.managedObjectContext,
                let story = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? Story {
                 context.deleteObject(story)
-                //context.save()
+                self.save()
             }
         }
         remove.backgroundColor = UIColor.redColor()
@@ -239,7 +241,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             
             print("download a story")
-            if let remoteStories = remoteStories {
+            if let remoteStories = displayedRemoteStories {
                 loadRemoteStory(remoteStories[indexPath.row])
             } else {
                 ControllerCommon.displayErrorDialog(self, message: "Error downloading story")
@@ -310,15 +312,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 
                 // saving now in case the app is closed before the autosave
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.executeSearch()
-                    do {
-                        try self.fetchedResultsController!.managedObjectContext.save()
-                        print("Saved")
-                    } catch {
-                        print("save didn't work")
-                    }
-                }
+                self.save()
                 
                 // remove this downloaded story from the "available on GitHub" list
                 self.removeStoryFromAvailableList(info.author, repo: info.repo)
@@ -335,14 +329,21 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func removeStoryFromAvailableList(author: String, repo: String) {
         // http://stackoverflow.com/a/31883396/4611868
-        if self.remoteStories != nil,
-           let ind = self.remoteStories!.indexOf({$0.author == author && $0.repo == repo}) {
-            self.remoteStories!.removeAtIndex(ind)
-//            dispatch_async(dispatch_get_main_queue()) {
-//                self.tableView.reloadData()
-//            }
+        if self.displayedRemoteStories != nil,
+           let ind = self.displayedRemoteStories!.indexOf({$0.author == author && $0.repo == repo}) {
+            self.displayedRemoteStories!.removeAtIndex(ind)
         }
     }
     
-    
+    func save() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.executeSearch()
+            do {
+                try self.fetchedResultsController!.managedObjectContext.save()
+                print("Saved")
+            } catch {
+                print("save didn't work")
+            }
+        }
+    }
 }
