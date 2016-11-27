@@ -169,13 +169,19 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let remove = UITableViewRowAction(style: .Normal, title: "Remove") { action, index in
             print("remove button tapped")
-            if let context = self.fetchedResultsController?.managedObjectContext,
-               let story = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? Story {
-                context.deleteObject(story)
-                self.save()
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.createAvailableList()
-                }
+//            if let context = self.fetchedResultsController?.managedObjectContext,
+//               let story = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? Story {
+//                context.deleteObject(story)
+//                self.save()
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    self.createAvailableList()
+//                }
+//            }
+            self.fetchedResultsController!.managedObjectContext.deleteObject(self.fetchedResultsController!.objectAtIndexPath(indexPath) as! Story)
+            //self.save()
+            self.executeSearch()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.createAvailableList()
             }
         }
         remove.backgroundColor = UIColor.redColor()
@@ -316,7 +322,8 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 
                 // saving now in case the app is closed before the autosave
-                self.save()
+                //self.save()
+                self.executeSearch()
                 
                 // remove this downloaded story from the "available on GitHub" list
                 self.removeStoryFromAvailableList(info.author, repo: info.repo)
