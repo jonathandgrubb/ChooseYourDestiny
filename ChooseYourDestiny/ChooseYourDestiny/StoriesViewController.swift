@@ -166,6 +166,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let remove = UITableViewRowAction(style: .Normal, title: "Remove") { action, index in
             print("remove button tapped")
+            if let context = self.fetchedResultsController?.managedObjectContext,
+               let story = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? Story {
+                context.deleteObject(story)
+                //context.save()
+            }
         }
         remove.backgroundColor = UIColor.redColor()
         
