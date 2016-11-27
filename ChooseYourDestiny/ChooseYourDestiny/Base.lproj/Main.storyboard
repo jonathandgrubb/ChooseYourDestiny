@@ -10,7 +10,7 @@
         <scene sceneID="6Vu-Rj-Mlx">
             <objects>
                 <navigationController id="IKZ-21-lKJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Stories" id="BFy-kJ-bgH"/>
+                    <tabBarItem key="tabBarItem" title="Stories" image="List" selectedImage="List" id="BFy-kJ-bgH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VBg-ap-W7H">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -27,7 +27,7 @@
         <scene sceneID="Tqa-ZV-R5G">
             <objects>
                 <navigationController id="CW9-vm-ErC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Read" id="WTx-NQ-gkf"/>
+                    <tabBarItem key="tabBarItem" title="Read" image="Read" selectedImage="Read" id="WTx-NQ-gkf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ttv-tP-70X">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -234,6 +234,8 @@
     </scenes>
     <resources>
         <image name="HighSeas" width="1920" height="1920"/>
+        <image name="List" width="30" height="30"/>
+        <image name="Read" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g1a-QJ-ciq"/>
