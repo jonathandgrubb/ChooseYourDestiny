@@ -98,10 +98,14 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             textView.text = currentChapter!.text
 
             // picture
-            //if let pic_data = chapter.picture {
-            //    image.setValue(pic_data, forKey: "data")
-            //} else 
-            if let pic_path = currentChapter!.picture_path,
+            if let pic_data = currentChapter!.picture {
+                
+                print("retrieving image data from CORE Data")
+                
+                // set the image for the chapter
+                image.image = UIImage(data: pic_data)
+
+            } else if let pic_path = currentChapter!.picture_path,
                let imageURL = NSURL(string: pic_path),
                let imageData = NSData(contentsOfURL: imageURL) {
                 
