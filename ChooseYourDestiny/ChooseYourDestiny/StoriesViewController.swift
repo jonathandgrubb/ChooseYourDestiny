@@ -52,16 +52,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // get a list of all stories that are available on GitHub
-        GitHubClient.sharedInstance().getStoryInfoForAllStoriesAndAuthors { (success, error, info) in
-            if success, let info = info {
-                self.remoteStories = info
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        
         // Get the stack
         let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let stack = delegate.stack
@@ -77,11 +67,22 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // see if we have any stories saved in CORE Data
         print("Number of fetchedObjects: \(fetchedResultsController!.fetchedObjects!.count)")
         
-        // exclude the list of what we've already downloaded
-        if let fc = fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-                for story in fo {
-                    self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
+        // get a list of all stories that are available on GitHub
+        GitHubClient.sharedInstance().getStoryInfoForAllStoriesAndAuthors { (success, error, info) in
+            if success, let info = info {
+                dispatch_async(dispatch_get_main_queue()) {
+
+                    self.remoteStories = info
+                    
+                    // exclude from the "available" list what we've already downloaded
+                    if let fc = self.fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
+                        for story in fo {
+                            self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
+                        }
+                    }
+                    
+                    self.tableView.reloadData()
+
                 }
             }
         }
@@ -112,14 +113,17 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (section == 0) {
             // downloaded stories
             if let fc = fetchedResultsController, let fo = fc.fetchedObjects {
+                print("downloaded stories count: \(fo.count)")
                 return fo.count
             }
         } else {
             // undownloaded stories
             if let remoteStories = remoteStories {
+                print("undownloaded stories count: \(remoteStories.count)")
                 return remoteStories.count
             }
         }
+        print("? stories count: 0 (section: \(section))")
         return 0
     }
     
@@ -334,9 +338,9 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if self.remoteStories != nil,
            let ind = self.remoteStories!.indexOf({$0.author == author && $0.repo == repo}) {
             self.remoteStories!.removeAtIndex(ind)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-            }
+//            dispatch_async(dispatch_get_main_queue()) {
+//                self.tableView.reloadData()
+//            }
         }
     }
     
