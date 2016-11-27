@@ -353,13 +353,13 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func save() {
         dispatch_async(dispatch_get_main_queue()) {
-            self.executeSearch()
             do {
                 try self.fetchedResultsController!.managedObjectContext.save()
                 print("Saved")
             } catch {
                 print("save didn't work")
             }
+            self.executeSearch()
         }
     }
 }

@@ -122,7 +122,13 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     currentChoices.append(choice)
                 }
             }
-
+        }
+        
+        // if the reading tab was clicked w/o any story ever being loaded, don't show anything
+        if currentChapter == nil {
+            scrollView.hidden = true
+        } else {
+            scrollView.hidden = false
         }
     }
     
