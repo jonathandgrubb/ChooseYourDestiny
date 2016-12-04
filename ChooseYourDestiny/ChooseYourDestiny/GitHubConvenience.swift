@@ -74,7 +74,7 @@ extension GitHubClient {
         var status : Errors?
         var allStoriesInfo = [StoryInfo]()
         
-        // ********** all authors ********** (failure covered)
+         // ********** all authors ********** (failure covered)
         listAllAuthors { (success, error, authors) in
             
             func bailOut {
@@ -149,7 +149,7 @@ extension GitHubClient {
         getStoryContent(user, repo: repo) { (success, error, content) in
             
             if let error = error {
-                print(error)
+                print("getStoryInfo error:\(error) user:\(user) repo:\(repo) ")
                 completionHandlerForGetStoryInfo(success: false, error: error, info: nil)
                 return
             }
@@ -158,7 +158,7 @@ extension GitHubClient {
                let story = content["story"] as? [String:AnyObject],
                let title = story["name"] as? String,
                let rating = story["rating"] as? String,
-               let chapters = story["chapters"] as? [String:AnyObject] {
+               let chapters = story["chapters"] as? [[String:AnyObject]] {
                 
                 let info = StoryInfo(author: user, repo: repo, title: title, numChapters: chapters.count, rating: rating)
                 
@@ -181,7 +181,7 @@ extension GitHubClient {
             var parsedResult: AnyObject!
             
             if let error = error {
-                print(error)
+                print("getStoryContent error:\(error) user:\(user) repo:\(repo) ")
                 completionHandlerForGetStoryContent(success: false, error: error, content: nil)
                 return
             }

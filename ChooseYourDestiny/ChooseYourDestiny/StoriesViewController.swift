@@ -12,7 +12,7 @@ import CoreData
 class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    var allRemoteStories : [GitHubClient.StoryInfo]?
+    var allRemoteStories : [GitHubClient.StoryInfo] = []
     var displayedRemoteStories : [GitHubClient.StoryInfo]?
     
     // MARK:  - Properties
@@ -69,30 +69,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("Number of fetchedObjects: \(fetchedResultsController!.fetchedObjects!.count)")
         
         // get a list of all stories that are available on GitHub
-        GitHubClient.sharedInstance().getStoryInfoForAllStoriesAndAuthors { (success, error, info) in
-            if success, let info = info {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.allRemoteStories = info
-                    self.createAvailableList()
-                }
-            }
-        }
+        getStoryInfoForAllStoriesAndAuthors()
         
         // http://stackoverflow.com/a/11937989/4611868
         // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
-    }
-    
-    func createAvailableList() {
-        displayedRemoteStories = allRemoteStories
-        
-        // exclude from the "available" list what we've already downloaded
-        if let fc = self.fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
-            for story in fo {
-                self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
-            }
-        }
-        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -174,14 +155,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
 //                context.deleteObject(story)
 //                self.save()
 //                dispatch_async(dispatch_get_main_queue()) {
-//                    self.createAvailableList()
+//                    self.updateAvailableList()
 //                }
 //            }
             self.fetchedResultsController!.managedObjectContext.deleteObject(self.fetchedResultsController!.objectAtIndexPath(indexPath) as! Story)
             //self.save()
             self.executeSearch()
             dispatch_async(dispatch_get_main_queue()) {
-                self.createAvailableList()
+                self.updateAvailableList()
             }
         }
         remove.backgroundColor = UIColor.redColor()
@@ -341,6 +322,88 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return
             }
         }
+    }
+    
+        // get story info for all stories and authors
+    func getStoryInfoForAllStoriesAndAuthors() {
+        
+        //var status : Errors?
+        //var allStoriesInfo = [StoryInfo]()
+        
+        // ********** all authors ********** (failure covered)
+        GitHubClient.sharedInstance().listAllAuthors { (success, error, authors) in
+            
+            //func bailOut {
+            //    if allStoriesInfo.count > 0 {
+            //        completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: true, error: status, info: allStoriesInfo)
+            //    } else {
+            //        completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: false, error: status, info: nil)
+            //    }
+            //}
+            
+            if let error = error {
+                print("error getting all authors: \(error)")
+                return
+            }
+            
+            if let authors = authors {
+                
+                for author in authors {
+                    
+                    // ********** all stories for the author **********
+                    GitHubClient.sharedInstance().listStoriesForAuthor(author) { (success, error, storyNames) in
+                        if let error = error {
+                            // just note the problem...
+                            print("listStoriesForAuthor: \(error)")
+
+                        } else if let storyNames = storyNames {
+                            
+                            for storyName in storyNames {
+                            
+                                // ********** get story info for each story **********
+                                GitHubClient.sharedInstance().getStoryInfo(author, repo: storyName) { (success, error, info) in
+                                    if let error = error {
+                                        // just note the problem...
+                                        print("getStoryInfo: \(error) for author:\(author)/storyName:\(storyName)")
+                                    } else if let info = info {
+                                        // add the new title to the list
+                                        dispatch_async(dispatch_get_main_queue()) {
+                                            self.allRemoteStories.append(info)
+                                            self.updateAvailableList()
+                                        }
+                                    } else {
+                                        print("problem with getStoryInfo... returned no error but returned no info for author: \(author) storyName: \(storyName)")
+                                    }
+                                    
+                                }
+                            }
+                            
+                        } else {
+                            // just note the problem...
+                            print("problem with listStoriesForAuthor... returned no error but returned no stories for author: \(author)")
+                        }
+                    } // listStoriesforAuthor
+                } // for authors
+                
+                
+            } else {
+                print("problem with listAllAuthors()... returned no error but returned no authors")
+            }
+        }
+        
+        
+    }
+
+    func updateAvailableList() {
+        displayedRemoteStories = allRemoteStories
+        
+        // exclude from the "available" list what we've already downloaded
+        if let fc = self.fetchedResultsController, let fo = fc.fetchedObjects as? [Story] {
+            for story in fo {
+                self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
+            }
+        }
+        self.tableView.reloadData()
     }
     
     func removeStoryFromAvailableList(author: String, repo: String) {
