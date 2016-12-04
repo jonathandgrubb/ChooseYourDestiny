@@ -130,7 +130,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Aau-0o-pQq">
                                         <rect key="frame" x="20" y="41" width="560" height="661"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HighSeas" translatesAutoresizingMaskIntoConstraints="NO" id="kA8-3c-tUf">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downloading" translatesAutoresizingMaskIntoConstraints="NO" id="kA8-3c-tUf">
                                                 <rect key="frame" x="0.0" y="0.0" width="560" height="128"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="128" id="WSA-cV-I80"/>
@@ -233,9 +233,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="HighSeas" width="1920" height="1920"/>
         <image name="List" width="30" height="30"/>
         <image name="Read" width="30" height="30"/>
+        <image name="downloading" width="600" height="692"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g1a-QJ-ciq"/>
