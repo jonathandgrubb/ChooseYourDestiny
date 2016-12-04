@@ -141,23 +141,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell;
     }
     
-    //func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    //    return 150.0
-    //}
-    
     // swipe left options (start)
     // http://stackoverflow.com/a/32586617
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let remove = UITableViewRowAction(style: .Normal, title: "Remove") { action, index in
             print("remove button tapped")
-//            if let context = self.fetchedResultsController?.managedObjectContext,
-//               let story = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? Story {
-//                context.deleteObject(story)
-//                self.save()
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    self.updateAvailableList()
-//                }
-//            }
+
             self.fetchedResultsController!.managedObjectContext.deleteObject(self.fetchedResultsController!.objectAtIndexPath(indexPath) as! Story)
             //self.save()
             self.executeSearch()
@@ -215,15 +204,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 } else {
                     print("could not find the story view controller")
                 }
-                
-                // go to the reading tab (and start at the beginning of the story)
-//                if let chapters = fetchedResultsController!.fetchedObjects as? [Chapter] where chapters.count == 1 {
-//                    GitHubClient.sharedInstance().startAtBeginning = true
-//                    GitHubClient.sharedInstance().currentChapter = chapters[0]
-//                    self.tabBarController?.selectedIndex = 1
-//                } else {
-//                    print("could not get the first chapter")
-//                }
                 
             } else {
                 print("could not find the story")
@@ -324,22 +304,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-        // get story info for all stories and authors
+    
+    // get story info for all stories and authors
     func getStoryInfoForAllStoriesAndAuthors() {
-        
-        //var status : Errors?
-        //var allStoriesInfo = [StoryInfo]()
         
         // ********** all authors ********** (failure covered)
         GitHubClient.sharedInstance().listAllAuthors { (success, error, authors) in
-            
-            //func bailOut {
-            //    if allStoriesInfo.count > 0 {
-            //        completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: true, error: status, info: allStoriesInfo)
-            //    } else {
-            //        completionHandlerForGetStoryInfoForAllStoriesAndAuthors(success: false, error: status, info: nil)
-            //    }
-            //}
             
             if let error = error {
                 print("error getting all authors: \(error)")
