@@ -127,14 +127,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             // Sync Story -> cell
             cell.textLabel?.text = story.name
-            cell.detailTextLabel?.text = "Not Started (\(story.chapter!.count) chapters) Rated: \(story.rating!)"
+            cell.detailTextLabel?.text = "By \(story.author!) (\(story.chapter!.count) chapters) Rated: \(story.rating!)"
         
         } else {
  
             if let remoteStories = displayedRemoteStories {
                 let story = remoteStories[indexPath.row]
                 cell.textLabel?.text = story.title
-                cell.detailTextLabel?.text = "Not On Device (\(story.numChapters) chapters) Rated: \(story.rating)"
+                cell.detailTextLabel?.text = "By \(story.author) (\(story.numChapters) chapters) Rated: \(story.rating)"
             }
         }
         
