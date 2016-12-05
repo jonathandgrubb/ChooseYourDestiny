@@ -15,6 +15,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var navItem: UINavigationItem!
     
     var currentChapter: Chapter?
     var currentChoices = [Choice]()
@@ -122,6 +123,11 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     currentChoices.append(choice)
                 }
             }
+        }
+        
+        // Load the name of the story
+        if let chapter = currentChapter, let story = chapter.story {
+            navigationItem.title = story.name
         }
         
         // if the reading tab was clicked w/o any story ever being loaded, don't show anything
