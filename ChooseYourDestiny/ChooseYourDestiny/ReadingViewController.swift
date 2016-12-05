@@ -15,7 +15,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var navItem: UINavigationItem!
     
     var currentChapter: Chapter?
     var currentChoices = [Choice]()
@@ -125,7 +124,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
-        // Load the name of the story
+        // Load the name of the chapter
         if let chapter = currentChapter {
             navigationItem.title = chapter.name
         }
