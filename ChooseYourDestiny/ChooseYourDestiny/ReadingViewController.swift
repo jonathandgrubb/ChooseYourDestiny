@@ -126,8 +126,8 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         // Load the name of the story
-        if let chapter = currentChapter, let story = chapter.story {
-            navigationItem.title = story.name
+        if let chapter = currentChapter {
+            navigationItem.title = chapter.name
         }
         
         // if the reading tab was clicked w/o any story ever being loaded, don't show anything
