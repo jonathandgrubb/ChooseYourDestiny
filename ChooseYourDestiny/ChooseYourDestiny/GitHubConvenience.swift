@@ -220,6 +220,8 @@ extension GitHubClient {
                 completionHandlerForListStoriesForAuthor(success: false, error: Errors.NetworkError, storyNames: nil)
             } else {
                 
+                print("raw result: \(result)")
+                
                 // cast the result into an array of dictionaries
                 if let items = result["items"] as? [[String:AnyObject]] {
                     
