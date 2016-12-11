@@ -117,6 +117,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
                                                 cacheName: nil)
             executeSearch()
             
+            currentChoices.removeAll()
             if let choices = fetchedResultsController!.fetchedObjects as? [Choice] {
                 for choice in choices {
                     currentChoices.append(choice)
