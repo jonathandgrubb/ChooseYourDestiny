@@ -383,7 +383,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         // exclude from the "availble" list what's not matching the filter
-        if let filter = searchBar.text?.lowercaseString where self.displayedRemoteStories != nil {
+        if let filter = searchBar.text?.lowercaseString where self.displayedRemoteStories != nil && filter != "" {
             for remoteStory in self.displayedRemoteStories! {
                 if remoteStory.author.lowercaseString.rangeOfString(filter) == nil &&
                    remoteStory.title.lowercaseString.rangeOfString(filter) == nil {
