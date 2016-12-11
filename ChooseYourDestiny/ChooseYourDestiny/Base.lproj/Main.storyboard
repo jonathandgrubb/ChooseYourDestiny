@@ -55,6 +55,9 @@
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="XNY-qk-452">
                                 <rect key="frame" x="20" y="64" width="560" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="FvM-JL-0pe" id="Ml2-uk-rsc"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OLD-cg-bp9">
                                 <rect key="frame" x="20" y="108" width="560" height="443"/>
@@ -105,6 +108,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Manage Your Library" id="dPV-mk-0um"/>
                     <connections>
+                        <outlet property="searchBar" destination="XNY-qk-452" id="rCc-vX-isL"/>
                         <outlet property="tableView" destination="OLD-cg-bp9" id="qss-PE-eWy"/>
                     </connections>
                 </viewController>

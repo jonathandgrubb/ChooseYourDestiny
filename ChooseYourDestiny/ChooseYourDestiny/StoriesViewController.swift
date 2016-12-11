@@ -9,9 +9,10 @@
 import UIKit
 import CoreData
 
-class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     var allRemoteStories : [GitHubClient.StoryInfo] = []
     var displayedRemoteStories : [GitHubClient.StoryInfo]?
     
@@ -44,6 +45,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let fc = fetchedResultsController{
             do{
                 try fc.performFetch()
+                //try fc.managedObjectContext.executeFetchRequest(fr)
             }catch let e as NSError{
                 print("Error while trying to perform a search: \n\(e)\n\(fetchedResultsController)")
             }
@@ -74,6 +76,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // http://stackoverflow.com/a/11937989/4611868
         // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
+        
+        // http://stackoverflow.com/a/32281860/4611868
+        // if the view is tapped we can dismiss the keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func didReceiveMemoryWarning() {
@@ -195,7 +202,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                                                     sectionNameKeyPath: nil,
                                                     cacheName: nil)
                 
-                // Inject it into the notesVC
+                // Inject it into the reading VC
                 if let navController = self.tabBarController?.childViewControllers[1] as? UINavigationController,
                    let readingVC = navController.viewControllers[0] as? ReadingViewController {
                     readingVC.fetchedResultsController = fc
@@ -373,6 +380,17 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.removeStoryFromAvailableList(story.author!, repo: story.repo!)
             }
         }
+        
+        // exclude from the "availble" list what's not matching the filter
+        if let filter = searchBar.text?.lowercaseString where self.displayedRemoteStories != nil {
+            for remoteStory in self.displayedRemoteStories! {
+                if remoteStory.author.lowercaseString.rangeOfString(filter) == nil &&
+                   remoteStory.title.lowercaseString.rangeOfString(filter) == nil {
+                    self.removeStoryFromAvailableList(remoteStory.author, repo: remoteStory.repo)
+                }
+            }
+        }
+        
         self.tableView.reloadData()
     }
     
@@ -395,4 +413,33 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.executeSearch()
         }
     }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        print("searchBar text changed: \(searchBar.text)")
+        
+        // filter the downloaded list
+        if let filter = searchBar.text {
+            let pred = NSPredicate(format: "(author LIKE[cd] %@) OR (name LIKE[cd] %@)", "*\(filter)*", "*\(filter)*")
+            fetchedResultsController!.fetchRequest.predicate = pred
+        } else {
+            let pred = NSPredicate()
+            fetchedResultsController!.fetchRequest.predicate = pred
+        }
+        executeSearch()
+        
+        // filter the available list
+        self.updateAvailableList()
+    }
+    
+    // when a user presses Search, the keyboard should be dismissed
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    // http://stackoverflow.com/a/32281860/4611868
+    // if the view is tapped we can dismiss the keyboard
+    func tap(gesture: UITapGestureRecognizer) {
+        searchBar.resignFirstResponder()
+    }
+
 }
