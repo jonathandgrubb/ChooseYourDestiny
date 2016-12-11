@@ -15,6 +15,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var searchBar: UISearchBar!
     var allRemoteStories : [GitHubClient.StoryInfo] = []
     var displayedRemoteStories : [GitHubClient.StoryInfo]?
+    var tapGesture : UITapGestureRecognizer?
     
     // MARK:  - Properties
     var fetchedResultsController : NSFetchedResultsController? {
@@ -79,8 +80,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // http://stackoverflow.com/a/32281860/4611868
         // if the view is tapped we can dismiss the keyboard
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
-        view.addGestureRecognizer(tapGesture)
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
     }
     
     override func didReceiveMemoryWarning() {
@@ -225,6 +225,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 ControllerCommon.displayErrorDialog(self, message: "Error downloading story")
             }
         }
+        
     }
     
     func loadRemoteStory(info : GitHubClient.StoryInfo) {
@@ -414,6 +415,21 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        // http://stackoverflow.com/a/32281860/4611868
+        // if the view is tapped we can dismiss the keyboard
+        if let tapGesture = tapGesture {
+            view.addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        // remove the tap gesture when not editing so we can handle other events again
+        if let tapGesture = tapGesture {
+            view.removeGestureRecognizer(tapGesture)
+        }
+    }
+    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchBar text changed: \(searchBar.text)")
         
@@ -439,7 +455,9 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     // http://stackoverflow.com/a/32281860/4611868
     // if the view is tapped we can dismiss the keyboard
     func tap(gesture: UITapGestureRecognizer) {
-        searchBar.resignFirstResponder()
+        if self.searchBar.isFirstResponder() {
+            self.searchBar.resignFirstResponder()
+        }
     }
 
 }
