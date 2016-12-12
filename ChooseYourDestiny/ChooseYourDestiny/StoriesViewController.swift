@@ -242,7 +242,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func loadRemoteStory(info : GitHubClient.StoryInfo) {
+        
+        networkCallStart()
         GitHubClient.sharedInstance().getStoryContent(info.author, repo: info.repo) { (success, error, content) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.networkCallDone()
+            }
+            
             if success == false {
                 dispatch_async(dispatch_get_main_queue()) {
                     ControllerCommon.displayErrorDialog(self, message: "Error downloading story")
