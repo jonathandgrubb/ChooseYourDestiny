@@ -18,6 +18,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     var tapGesture : UITapGestureRecognizer?
     var activityIndicator : UIActivityIndicatorView?
     var barButton : UIBarButtonItem?
+    var concurrentNetworkCalls = 0
 
     
     // MARK:  - Properties
@@ -84,14 +85,15 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // if the view is tapped we can dismiss the keyboard
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         
+        // http://stackoverflow.com/questions/21839502/adding-an-activity-indicator-to-the-nav-bar
         // for displaying network activity
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        self.barButton = UIBarButtonItem(customView: activityIndicator!)
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = self.barButton
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        barButton = UIBarButtonItem(customView: activityIndicator!)
+        navigationItem.rightBarButtonItem = nil
+        navigationItem.rightBarButtonItem = barButton
         
-        self.activityIndicator!.hidden = false
-        self.activityIndicator!.startAnimating()
+        // track the number of network calls being executed concurrently
+        concurrentNetworkCalls = 0
     }
     
     override func didReceiveMemoryWarning() {
@@ -458,4 +460,33 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    // started doing network stuff
+    func networkCallStart() {
+        if self.activityIndicator != nil {
+            self.activityIndicator!.hidden = false
+            self.activityIndicator!.startAnimating()
+        }
+    }
+
+    // stopped doing network stuff
+    func networkCallDone() {
+        if self.activityIndicator != nil {
+            self.activityIndicator!.hidden = true
+            self.activityIndicator!.stopAnimating()
+        }
+    }
+    
+    // track a group of network calls - start
+    func concurrentNetworkCallStart() {
+        concurrentNetworkCalls += 1
+        networkCallStart()
+    }
+
+    // track a group of network calls - done
+    func concurrentNetworkCallDone() {
+        concurrentNetworkCalls -= 1
+        if concurrentNetworkCalls < 1 {
+            networkCallDone()
+        }
+    }
 }
