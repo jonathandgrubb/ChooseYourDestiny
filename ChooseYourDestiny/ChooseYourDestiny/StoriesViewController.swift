@@ -94,6 +94,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // track the number of network calls being executed concurrently
         concurrentNetworkCalls = 0
+        networkCallDone()
     }
     
     override func didReceiveMemoryWarning() {
@@ -251,9 +252,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             if success == false {
-                dispatch_async(dispatch_get_main_queue()) {
-                    ControllerCommon.displayErrorDialog(self, message: "Error downloading story")
-                }
+                ControllerCommon.displayErrorDialog(self, message: "Error downloading story")
                 return
             }
             
@@ -342,6 +341,9 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.concurrentNetworkCallDone()
             if let error = error {
                 print("error getting all authors: \(error)")
+                if error == GitHubClient.Errors.NetworkError {
+                    ControllerCommon.displayErrorDialog(self, message: "Network Error While Getting Author List")
+                }
                 return
             }
             
@@ -357,6 +359,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                         if let error = error {
                             // just note the problem...
                             print("listStoriesForAuthor: \(error)")
+                            
+                            // seems like bad UX, but...
+                            if error == GitHubClient.Errors.NetworkError {
+                                ControllerCommon.displayErrorDialog(self, message: "Network Error")
+                            }
 
                         } else if let storyNames = storyNames {
                             
@@ -370,6 +377,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                                     if let error = error {
                                         // just note the problem...
                                         print("getStoryInfo: \(error) for author:\(author)/storyName:\(storyName)")
+                                        
+                                        // seems like bad UX, but...
+                                        if error == GitHubClient.Errors.NetworkError {
+                                            ControllerCommon.displayErrorDialog(self, message: "Network Error")
+                                        }
+                                        
                                     } else if let info = info {
                                         // add the new title to the list
                                         dispatch_async(dispatch_get_main_queue()) {
