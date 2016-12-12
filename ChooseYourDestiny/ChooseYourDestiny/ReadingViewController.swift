@@ -240,6 +240,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             GitHubClient.sharedInstance().getStoryResource(pic_path, author: author, repo: repo) { (success, error, data) in
                 if success == false {
                     print("problem getting \(pic_path) from \(author)'s \(repo) repo")
+                    ControllerCommon.displayErrorDialog(self, message: "Problem Loading Image")
                     loadSuccess = false
                 } else {
                     dispatch_async(dispatch_get_main_queue()) {
@@ -254,6 +255,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         } else {
             print("image data not found or could not be parsed")
+            ControllerCommon.displayErrorDialog(self, message: "Problem Loading Image")
             loadSuccess = false
         }
         
