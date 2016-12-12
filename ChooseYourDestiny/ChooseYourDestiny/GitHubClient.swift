@@ -20,12 +20,8 @@ class GitHubClient : NSObject {
     // GET
     func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        // 1. (TODO) Set the parameters (don't think we need this
+        // 1. (TODO) Set the parameters
         var params = parameters
-        //params[Constants.FlickrParameterKeys.APIKey] = Constants.FlickrParameterValues.APIKey
-        //params[Constants.FlickrParameterKeys.Format] = Constants.FlickrParameterValues.ResponseFormat
-        //params[Constants.FlickrParameterKeys.SafeSearch] = Constants.FlickrParameterValues.UseSafeSearch
-        //params[Constants.FlickrParameterKeys.NoJSONCallback] = Constants.FlickrParameterValues.DisableJSONCallback
         
         // 2/3. Build the URL, Configure the request
         let request = NSMutableURLRequest(URL: parseURLFromParameters(params, withPathExtension: method))

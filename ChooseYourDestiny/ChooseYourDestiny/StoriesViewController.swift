@@ -291,7 +291,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 
                 // saving now in case the app is closed before the autosave
-                //self.save()
                 self.executeSearch()
                 
                 // remove this downloaded story from the "available on GitHub" list
@@ -400,18 +399,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if self.displayedRemoteStories != nil,
            let ind = self.displayedRemoteStories!.indexOf({$0.author == author && $0.repo == repo}) {
             self.displayedRemoteStories!.removeAtIndex(ind)
-        }
-    }
-    
-    func save() {
-        dispatch_async(dispatch_get_main_queue()) {
-            do {
-                try self.fetchedResultsController!.managedObjectContext.save()
-                print("Saved")
-            } catch {
-                print("save didn't work")
-            }
-            self.executeSearch()
         }
     }
     

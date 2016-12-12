@@ -65,11 +65,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // http://stackoverflow.com/a/11937989/4611868
         // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
-        
-        // Create the FetchedResultsController (might need this to get the choices)
-        //fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
-        //                                                      managedObjectContext: stack.context, 
-        //                                                      sectionNameKeyPath: nil, cacheName: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -182,10 +177,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell;
     }
-    
-    //func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //    nextChapterId = currentChoices[indexPath.row].chapter_id
-    //}
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
