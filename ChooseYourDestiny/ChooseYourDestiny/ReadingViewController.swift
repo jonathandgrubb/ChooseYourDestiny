@@ -13,6 +13,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var textView: UITextView!
     
@@ -73,6 +74,12 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // take out background colors
+        let bgColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1.0)
+        scrollView.backgroundColor = bgColor
+        stackView.backgroundColor = bgColor
+        view.backgroundColor = bgColor
         
         // if this was navigated to as a new story
         if let startOver = GitHubClient.sharedInstance().startAtBeginning where startOver == true {
