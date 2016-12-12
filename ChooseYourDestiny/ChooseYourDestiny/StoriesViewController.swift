@@ -329,8 +329,10 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     func getStoryInfoForAllStoriesAndAuthors() {
         
         // ********** all authors ********** (failure covered)
+        concurrentNetworkCallStart()
         GitHubClient.sharedInstance().listAllAuthors { (success, error, authors) in
             
+            self.concurrentNetworkCallDone()
             if let error = error {
                 print("error getting all authors: \(error)")
                 return
@@ -341,7 +343,10 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 for author in authors {
                     
                     // ********** all stories for the author **********
+                    self.concurrentNetworkCallStart()
                     GitHubClient.sharedInstance().listStoriesForAuthor(author) { (success, error, storyNames) in
+                        
+                        self.concurrentNetworkCallDone()
                         if let error = error {
                             // just note the problem...
                             print("listStoriesForAuthor: \(error)")
@@ -351,7 +356,10 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                             for storyName in storyNames {
                             
                                 // ********** get story info for each story **********
+                                self.concurrentNetworkCallStart()
                                 GitHubClient.sharedInstance().getStoryInfo(author, repo: storyName) { (success, error, info) in
+                                    
+                                    self.concurrentNetworkCallDone()
                                     if let error = error {
                                         // just note the problem...
                                         print("getStoryInfo: \(error) for author:\(author)/storyName:\(storyName)")
@@ -478,15 +486,19 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // track a group of network calls - start
     func concurrentNetworkCallStart() {
-        concurrentNetworkCalls += 1
-        networkCallStart()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.concurrentNetworkCalls += 1
+            self.networkCallStart()
+        }
     }
 
     // track a group of network calls - done
     func concurrentNetworkCallDone() {
-        concurrentNetworkCalls -= 1
-        if concurrentNetworkCalls < 1 {
-            networkCallDone()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.concurrentNetworkCalls -= 1
+            if self.concurrentNetworkCalls < 1 {
+                self.networkCallDone()
+            }
         }
     }
 }
