@@ -16,6 +16,9 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     var allRemoteStories : [GitHubClient.StoryInfo] = []
     var displayedRemoteStories : [GitHubClient.StoryInfo]?
     var tapGesture : UITapGestureRecognizer?
+    var activityIndicator : UIActivityIndicatorView?
+    var barButton : UIBarButtonItem?
+
     
     // MARK:  - Properties
     var fetchedResultsController : NSFetchedResultsController? {
@@ -80,6 +83,15 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // http://stackoverflow.com/a/32281860/4611868
         // if the view is tapped we can dismiss the keyboard
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+        
+        // for displaying network activity
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        self.barButton = UIBarButtonItem(customView: activityIndicator!)
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = self.barButton
+        
+        self.activityIndicator!.hidden = false
+        self.activityIndicator!.startAnimating()
     }
     
     override func didReceiveMemoryWarning() {
