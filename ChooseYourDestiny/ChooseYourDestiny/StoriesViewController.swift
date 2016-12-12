@@ -46,7 +46,6 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let fc = fetchedResultsController{
             do{
                 try fc.performFetch()
-                //try fc.managedObjectContext.executeFetchRequest(fr)
             }catch let e as NSError{
                 print("Error while trying to perform a search: \n\(e)\n\(fetchedResultsController)")
             }
