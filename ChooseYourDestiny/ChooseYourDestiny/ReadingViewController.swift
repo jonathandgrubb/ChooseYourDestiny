@@ -17,6 +17,8 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var textView: UITextView!
     
+    var activityIndicator : UIActivityIndicatorView?
+    
     var currentChapter: Chapter?
     var currentChoices = [Choice]()
     
@@ -65,6 +67,14 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // http://stackoverflow.com/a/11937989/4611868
         // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
+        
+        // http://stackoverflow.com/a/22266015/4611868
+        // for displaying network activity
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        activityIndicator!.center = image.center
+        activityIndicator!.hidden = true
+        activityIndicator!.stopAnimating()
+        image.addSubview(activityIndicator!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -106,6 +116,8 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             if (chapterImageLoad() == false) {
                 image.hidden = true
             }
+            activityIndicator!.hidden = true
+            activityIndicator!.stopAnimating()
 
             // load the choices for this chapter
             let fr = NSFetchRequest(entityName: "Choice")
@@ -214,48 +226,62 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let pic_data = currentChapter!.picture {
             
             print("retrieving image data from CORE Data")
-            
             // set the image for the chapter
             image.image = UIImage(data: pic_data)
             
-        } else if let pic_path = currentChapter!.picture_path,
-            let imageURL = NSURL(string: pic_path),
-            let imageData = NSData(contentsOfURL: imageURL)
-            where pic_path.hasPrefix("https") {
+        } else if let pic_path = currentChapter!.picture_path {
             
-            print("retrieving image data from web (outside of GitHub)")
+            // reaching out over the network for the image
+            activityIndicator!.hidden = false
+            activityIndicator!.startAnimating()
             
-            // set the image for the chapter
-            image.image = UIImage(data: imageData)
+            if let imageURL = NSURL(string: pic_path) where pic_path.hasPrefix("https") {
             
-            // save image data to the model
-            currentChapter!.setValue(imageData, forKey: "picture")
-            
-        } else if let pic_path = currentChapter!.picture_path,
-            let author = currentChapter!.story!.author,
-            let repo = currentChapter!.story!.repo {
-            
-            print("retrieving image data from GitHub repo")
-            
-            GitHubClient.sharedInstance().getStoryResource(pic_path, author: author, repo: repo) { (success, error, data) in
-                if success == false {
-                    print("problem getting \(pic_path) from \(author)'s \(repo) repo")
+                print("retrieving image data from web (outside of GitHub)")
+                
+                if let imageData = NSData(contentsOfURL: imageURL) {
+                    // set the image for the chapter
+                    image.image = UIImage(data: imageData)
+                    // save image data to the model
+                    currentChapter!.setValue(imageData, forKey: "picture")
+                } else {
+                    print("problem getting \(imageURL)")
                     ControllerCommon.displayErrorDialog(self, message: "Problem Loading Image")
                     loadSuccess = false
-                } else {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // set the image for the chapter
-                        self.image.image = UIImage(data: data!)
-                        
-                        // save image data to the model
-                        self.currentChapter!.setValue(data!, forKey: "picture")
-                    }
                 }
+                
+            } else {
+            
+                if let author = currentChapter!.story!.author,
+                   let repo = currentChapter!.story!.repo {
+                
+                    print("retrieving image data from GitHub repo")
+                    
+                    GitHubClient.sharedInstance().getStoryResource(pic_path, author: author, repo: repo) { (success, error, data) in
+                        if success == false {
+                            print("problem getting \(pic_path) from \(author)'s \(repo) repo")
+                            ControllerCommon.displayErrorDialog(self, message: "Problem Loading Image")
+                            loadSuccess = false
+                        } else {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                // set the image for the chapter
+                                self.image.image = UIImage(data: data!)
+                                
+                                // save image data to the model
+                                self.currentChapter!.setValue(data!, forKey: "picture")
+                            }
+                        }
+                    }
+                } else {
+                    print("author or repo missing from the story model. shouldn't get here")
+                    ControllerCommon.displayErrorDialog(self, message: "Problem With Story File")
+                    loadSuccess = false
+                }
+                
             }
             
         } else {
-            print("image data not found or could not be parsed")
-            ControllerCommon.displayErrorDialog(self, message: "Problem Loading Image")
+            print("image data not specified")
             loadSuccess = false
         }
         
