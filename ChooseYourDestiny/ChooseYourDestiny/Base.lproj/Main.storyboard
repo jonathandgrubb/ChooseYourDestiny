@@ -275,6 +275,9 @@
                                         <rect key="frame" x="0.0" y="198" width="251" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="lsY-e7-M7D" id="KvX-5c-vi1"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ieb-2P-jJd">
                                         <rect key="frame" x="0.0" y="228" width="251" height="20"/>
@@ -287,6 +290,9 @@
                                         <rect key="frame" x="0.0" y="248" width="251" height="30"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="donePressed:" destination="lsY-e7-M7D" eventType="touchUpInside" id="6xU-Nd-MJP"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -308,6 +314,9 @@
                             <constraint firstItem="1Dm-0P-Buw" firstAttribute="centerX" secondItem="vr0-GG-ZHy" secondAttribute="centerX" id="quG-zF-Lw6"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="firstName" destination="2JO-Lx-JFP" id="MfY-la-E0j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qa5-rR-Byi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

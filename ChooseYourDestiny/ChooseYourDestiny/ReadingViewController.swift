@@ -100,7 +100,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             currentChapter = chapters[0]
             
             // text
-            textView.text = currentChapter!.text
+            textView.text = addPersonalization(currentChapter!.text)
 
             // picture
             if (chapterImageLoad() == false) {
@@ -272,5 +272,17 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         return loadSuccess
+    }
+    
+    func addPersonalization(text: String?) -> String? {
+        if let text = text {
+            if let fname = NSUserDefaults.standardUserDefaults().stringForKey("firstName") {
+                return text.stringByReplacingOccurrencesOfString("[[name]]", withString: fname)
+            } else {
+                return text
+            }
+        } else {
+            return nil
+        }
     }
 }

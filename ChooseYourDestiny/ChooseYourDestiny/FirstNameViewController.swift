@@ -8,8 +8,9 @@
 
 import UIKit
 
-class FirstNameViewController : UIViewController {
+class FirstNameViewController : UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var firstName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -18,4 +19,25 @@ class FirstNameViewController : UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func donePressed(sender: AnyObject) {
+        saveTheName()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return saveTheName()
+    }
+    
+    func saveTheName() -> Bool {
+        if let fname = firstName.text where fname != "" {
+            NSUserDefaults.standardUserDefaults().setValue(fname, forKey: "firstName")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            dismissViewControllerAnimated(true, completion: nil)
+            return true
+        } else {
+            ControllerCommon.displayErrorDialog(self, message: "Please? Some stories might mention you by name!")
+            return false
+        }
+    }
+    
 }
