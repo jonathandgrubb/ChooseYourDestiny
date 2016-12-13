@@ -17,8 +17,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var textView: UITextView!
     
-    var activityIndicator : UIActivityIndicatorView?
-    
     var currentChapter: Chapter?
     var currentChoices = [Choice]()
     
@@ -67,14 +65,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // http://stackoverflow.com/a/11937989/4611868
         // get rid of the empty rows at the bottom of the choices
         tableView?.tableFooterView = UIView()
-        
-        // http://stackoverflow.com/a/22266015/4611868
-        // for displaying network activity
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        activityIndicator!.center = image.center
-        activityIndicator!.hidden = true
-        activityIndicator!.stopAnimating()
-        image.addSubview(activityIndicator!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -116,8 +106,6 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             if (chapterImageLoad() == false) {
                 image.hidden = true
             }
-            activityIndicator!.hidden = true
-            activityIndicator!.stopAnimating()
 
             // load the choices for this chapter
             let fr = NSFetchRequest(entityName: "Choice")
@@ -232,9 +220,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else if let pic_path = currentChapter!.picture_path {
             
             // reaching out over the network for the image
-            activityIndicator!.hidden = false
-            activityIndicator!.startAnimating()
-            
+
             if let imageURL = NSURL(string: pic_path) where pic_path.hasPrefix("https") {
             
                 print("retrieving image data from web (outside of GitHub)")
