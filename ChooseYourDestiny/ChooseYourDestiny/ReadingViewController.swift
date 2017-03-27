@@ -21,19 +21,19 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
     var currentChoices = [Choice]()
     
     // MARK:  - Properties
-    var fetchedResultsController : NSFetchedResultsController? {
+    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet{
             // Whenever the frc changes, we execute the search and
             // reload the table
             fetchedResultsController?.delegate = self
             executeSearch()
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    init(fetchedResultsController fc : NSFetchedResultsController) {
+    init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>) {
         fetchedResultsController = fc
         super.init(nibName: nil, bundle: nil)
     }
@@ -67,7 +67,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView?.tableFooterView = UIView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // take out background colors
@@ -77,10 +77,10 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.backgroundColor = bgColor
         
         // if this was navigated to as a new story
-        if let startOver = GitHubClient.sharedInstance().startAtBeginning where startOver == true {
+        if let startOver = GitHubClient.sharedInstance().startAtBeginning, startOver == true {
             
             // pop the navigation stack
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            _ = self.navigationController?.popToRootViewController(animated: true)
             
             // scroll to the top
             self.scrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
@@ -88,13 +88,12 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             GitHubClient.sharedInstance().startAtBeginning = false
 
             // don't hide the image by default
-            image.hidden = false
+            image.isHidden = false
         }
         
         // load the data for the current chapter
         if let fc = fetchedResultsController,
-           let chapters = fc.fetchedObjects as? [Chapter]
-           where chapters.count > 0 {
+           let chapters = fc.fetchedObjects as? [Chapter], chapters.count > 0 {
             
             // set the current chapter
             currentChapter = chapters[0]
@@ -104,11 +103,11 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
             // picture
             if (chapterImageLoad() == false) {
-                image.hidden = true
+                image.isHidden = true
             }
 
             // load the choices for this chapter
-            let fr = NSFetchRequest(entityName: "Choice")
+            let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Choice")
             fr.sortDescriptors = []
             let pred = NSPredicate(format: "(chapter = %@)", currentChapter!)
             fr.predicate = pred
@@ -134,21 +133,21 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // if the reading tab was clicked w/o any story ever being loaded, don't show anything
         if currentChapter == nil {
-            scrollView.hidden = true
+            scrollView.isHidden = true
         } else {
-            scrollView.hidden = false
+            scrollView.isHidden = false
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return nil
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let chapter = currentChapter, let choices = chapter.choice {
             return choices.count
         } else {
@@ -156,14 +155,14 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Create the cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChoiceCell", forIndexPath: indexPath) as! ChoiceCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChoiceCell", for: indexPath) as! ChoiceCell
         
         // http://stackoverflow.com/a/1754259
         cell.label?.numberOfLines = 0
-        cell.label?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        cell.label?.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         // get the text for the choice
         let choice = currentChoices[indexPath.row]
@@ -178,18 +177,17 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell;
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        if let readingVC = segue.destinationViewController as? ReadingViewController,
+        if let readingVC = segue.destination as? ReadingViewController,
            let chapter = currentChapter, let story = chapter.story,
            let selectedRowIndexPath = tableView.indexPathForSelectedRow,
-           let nextChapterId = currentChoices[selectedRowIndexPath.row].chapter_id
-           where segue.identifier! == "NextReadingPage"{
+           let nextChapterId = currentChoices[selectedRowIndexPath.row].chapter_id, segue.identifier! == "NextReadingPage"{
             
             // Create Fetch Reuqest for the next chapter
-            let fr = NSFetchRequest(entityName: "Chapter")
+            let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Chapter")
             fr.sortDescriptors = []
             let pred = NSPredicate(format: "(id = %@) AND (story = %@)", nextChapterId, story)
             fr.predicate = pred
@@ -215,17 +213,17 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             print("retrieving image data from CORE Data")
             // set the image for the chapter
-            image.image = UIImage(data: pic_data)
+            image.image = UIImage(data: pic_data as Data)
             
         } else if let pic_path = currentChapter!.picture_path {
             
             // reaching out over the network for the image
 
-            if let imageURL = NSURL(string: pic_path) where pic_path.hasPrefix("https") {
+            if let imageURL = URL(string: pic_path), pic_path.hasPrefix("https") {
             
                 print("retrieving image data from web (outside of GitHub)")
                 
-                if let imageData = NSData(contentsOfURL: imageURL) {
+                if let imageData = try? Data(contentsOf: imageURL) {
                     // set the image for the chapter
                     image.image = UIImage(data: imageData)
                     // save image data to the model
@@ -249,7 +247,7 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
                             ControllerCommon.displayErrorDialog(self, message: "Problem Loading Image")
                             loadSuccess = false
                         } else {
-                            dispatch_async(dispatch_get_main_queue()) {
+                            DispatchQueue.main.async {
                                 // set the image for the chapter
                                 self.image.image = UIImage(data: data!)
                                 
@@ -274,10 +272,10 @@ class ReadingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return loadSuccess
     }
     
-    func addPersonalization(text: String?) -> String? {
+    func addPersonalization(_ text: String?) -> String? {
         if let text = text {
-            if let fname = NSUserDefaults.standardUserDefaults().stringForKey("firstName") {
-                return text.stringByReplacingOccurrencesOfString("[[name]]", withString: fname)
+            if let fname = UserDefaults.standard.string(forKey: "firstName") {
+                return text.replacingOccurrences(of: "[[name]]", with: fname)
             } else {
                 return text
             }

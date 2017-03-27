@@ -20,19 +20,19 @@ class FirstNameViewController : UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func donePressed(sender: AnyObject) {
-        saveTheName()
+    @IBAction func donePressed(_ sender: AnyObject) {
+        _ = saveTheName()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return saveTheName()
     }
     
     func saveTheName() -> Bool {
-        if let fname = firstName.text where fname != "" {
-            NSUserDefaults.standardUserDefaults().setValue(fname, forKey: "firstName")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            dismissViewControllerAnimated(true, completion: nil)
+        if let fname = firstName.text, fname != "" {
+            UserDefaults.standard.setValue(fname, forKey: "firstName")
+            UserDefaults.standard.synchronize()
+            dismiss(animated: true, completion: nil)
             return true
         } else {
             ControllerCommon.displayErrorDialog(self, message: "Please? Some stories might mention you by name!")

@@ -17,9 +17,9 @@ extension Chapter {
     @NSManaged var id: String?
     @NSManaged var is_first_chapter: String?
     @NSManaged var name: String?
-    @NSManaged var picture: NSData?
+    @NSManaged var picture: Data?
     @NSManaged var text: String?
-    @NSManaged var video: NSData?
+    @NSManaged var video: Data?
     @NSManaged var picture_path: String?
     @NSManaged var video_path: String?
     @NSManaged var choice: NSSet?

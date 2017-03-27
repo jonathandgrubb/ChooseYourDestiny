@@ -15,10 +15,10 @@ import CoreData
 extension Story {
 
     @NSManaged var id: String?
-    @NSManaged var picture: NSData?
+    @NSManaged var picture: Data?
     @NSManaged var rating: String?
     @NSManaged var summary: String?
-    @NSManaged var video: NSData?
+    @NSManaged var video: Data?
     @NSManaged var name: String?
     @NSManaged var picture_path: String?
     @NSManaged var video_path: String?

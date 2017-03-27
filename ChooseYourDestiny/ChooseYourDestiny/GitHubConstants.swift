@@ -28,15 +28,15 @@ extension GitHubClient {
     
     // MARK: Errors
     enum Errors {
-        case NetworkError
-        case LoginFailed
-        case LogoutFailed
-        case RequiredContentMissing
-        case FileNotFound
-        case InvalidFileFormat
-        case CouldNotConvertToJson
-        case InternalError
-        case InvalidResponse
+        case networkError
+        case loginFailed
+        case logoutFailed
+        case requiredContentMissing
+        case fileNotFound
+        case invalidFileFormat
+        case couldNotConvertToJson
+        case internalError
+        case invalidResponse
     }
     
     // MARK: Methods

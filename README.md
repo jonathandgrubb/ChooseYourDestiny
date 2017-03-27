@@ -1,11 +1,8 @@
 # ChooseYourDestiny
 Capstone project for iOS Nanodegree from Udacity
 
-Coded to July 2016 Requirements
-* XCode 7
-* Swift 2.1
-
 Features:
+* Swift 3 (updated from Swift 2.1)
 * Multiple Views
 * Interracts with a Web Service
 * Uses CoreData

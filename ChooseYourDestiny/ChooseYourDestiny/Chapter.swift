@@ -17,14 +17,14 @@ class Chapter: NSManagedObject {
         // An EntityDescription is an object that has access to all
         // the information you provided in the Entity part of the model
         // you need it to create an instance of this class.
-        if let ent = NSEntityDescription.entityForName("Chapter", inManagedObjectContext: context){
-            self.init(entity: ent, insertIntoManagedObjectContext: context)
+        if let ent = NSEntityDescription.entity(forEntityName: "Chapter", in: context){
+            self.init(entity: ent, insertInto: context)
             self.id = id
             self.name = name
             self.text = text
             self.picture_path = pic_path
             self.video_path = vid_path
-            if let first = isFirstChapter where first == true {
+            if let first = isFirstChapter, first == true {
                 self.is_first_chapter = "true"
             } else {
                 self.is_first_chapter = "false"

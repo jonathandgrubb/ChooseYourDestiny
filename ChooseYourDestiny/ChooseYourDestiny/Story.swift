@@ -17,8 +17,8 @@ class Story: NSManagedObject {
         // An EntityDescription is an object that has access to all
         // the information you provided in the Entity part of the model
         // you need it to create an instance of this class.
-        if let ent = NSEntityDescription.entityForName("Story", inManagedObjectContext: context){
-            self.init(entity: ent, insertIntoManagedObjectContext: context)
+        if let ent = NSEntityDescription.entity(forEntityName: "Story", in: context){
+            self.init(entity: ent, insertInto: context)
             self.author = author
             self.repo = repo
             self.id = id

@@ -10,15 +10,15 @@ import UIKit
 
 class TabBarController : UITabBarController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view, typically from a nib.
         
         // trying this first name thing here
-        if NSUserDefaults.standardUserDefaults().stringForKey("firstName") == nil {
-            dispatch_async(dispatch_get_main_queue()) {
-                let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FirstNameViewController")
-                self.presentViewController(controller, animated: true, completion: nil)
+        if UserDefaults.standard.string(forKey: "firstName") == nil {
+            DispatchQueue.main.async {
+                let controller = self.storyboard!.instantiateViewController(withIdentifier: "FirstNameViewController")
+                self.present(controller, animated: true, completion: nil)
             }
         }
     }

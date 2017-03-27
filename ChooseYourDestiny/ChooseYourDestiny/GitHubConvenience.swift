@@ -12,7 +12,7 @@ extension GitHubClient {
     
     
     // list all authors
-    func listAllAuthors(completionHandlerForListAllAuthors: (success: Bool, error: Errors?, authors: [String]?) -> Void) {
+    func listAllAuthors(_ completionHandlerForListAllAuthors: @escaping (_ success: Bool, _ error: Errors?, _ authors: [String]?) -> Void) {
     
         getFileContent(Constants.AuthorsFileName, user: Constants.AuthorsRepoUserID, repo: Constants.AuthorsRepoName) { (success, error, content) in
             
@@ -20,21 +20,21 @@ extension GitHubClient {
 
             if let error = error {
                 print(error)
-                completionHandlerForListAllAuthors(success: false, error: error, authors: nil)
+                completionHandlerForListAllAuthors(false, error, nil)
                 return
             }
                 
             if let content = content {
                 do {
                     // turn into json object
-                    parsedResult = try NSJSONSerialization.JSONObjectWithData(content, options: .AllowFragments)
+                    parsedResult = try JSONSerialization.jsonObject(with: content, options: .allowFragments) as AnyObject
                 } catch {
-                    completionHandlerForListAllAuthors(success: false, error: Errors.CouldNotConvertToJson, authors: nil)
+                    completionHandlerForListAllAuthors(false, Errors.couldNotConvertToJson, nil)
                     return
                 }
             } else {
                 // shouldn't happen if error isn't set
-                completionHandlerForListAllAuthors(success: false, error: Errors.InternalError, authors: nil)
+                completionHandlerForListAllAuthors(false, Errors.internalError, nil)
                 return
             }
             
@@ -47,17 +47,17 @@ extension GitHubClient {
                         authorList.append(name)
                     } else {
                         // invalid element... of the names isn't there
-                        completionHandlerForListAllAuthors(success: false, error: Errors.InvalidFileFormat, authors: nil)
+                        completionHandlerForListAllAuthors(false, Errors.invalidFileFormat, nil)
                         return
                     }
                 }
                 
                 // success!!!
-                completionHandlerForListAllAuthors(success: true, error: nil, authors: authorList)
+                completionHandlerForListAllAuthors(true, nil, authorList)
                 
             } else {
                 // couldn't find the author's tag
-                completionHandlerForListAllAuthors(success: false, error: Errors.InvalidFileFormat, authors: nil)
+                completionHandlerForListAllAuthors(false, Errors.invalidFileFormat, nil)
             }
             
         }
@@ -65,13 +65,13 @@ extension GitHubClient {
     
     
     // get story info
-    func getStoryInfo(user: String, repo: String, completionHandlerForGetStoryInfo: (success: Bool, error: Errors?, info: StoryInfo?) -> Void) {
+    func getStoryInfo(_ user: String, repo: String, completionHandlerForGetStoryInfo: @escaping (_ success: Bool, _ error: Errors?, _ info: StoryInfo?) -> Void) {
     
         getStoryContent(user, repo: repo) { (success, error, content) in
             
             if let error = error {
                 print("getStoryInfo error:\(error) user:\(user) repo:\(repo) ")
-                completionHandlerForGetStoryInfo(success: false, error: error, info: nil)
+                completionHandlerForGetStoryInfo(false, error, nil)
                 return
             }
             
@@ -83,12 +83,12 @@ extension GitHubClient {
                 
                 let info = StoryInfo(author: user, repo: repo, title: title, numChapters: chapters.count, rating: rating)
                 
-                completionHandlerForGetStoryInfo(success: true, error: nil, info: info)
+                completionHandlerForGetStoryInfo(true, nil, info)
                 return
                 
             } else {
                 print("required content missing from story json : \(content)")
-                completionHandlerForGetStoryInfo(success: false, error: Errors.InvalidFileFormat, info: nil)
+                completionHandlerForGetStoryInfo(false, Errors.invalidFileFormat, nil)
                 return
             }
         }
@@ -96,7 +96,7 @@ extension GitHubClient {
     
     
     // get story content
-    func getStoryContent(user: String, repo: String, completionHandlerForGetStoryContent: (success: Bool, error: Errors?, content: AnyObject?) -> Void) {
+    func getStoryContent(_ user: String, repo: String, completionHandlerForGetStoryContent: @escaping (_ success: Bool, _ error: Errors?, _ content: AnyObject?) -> Void) {
         
         getFileContent(Constants.StoryFileName, user: user, repo: repo) { (success, error, content) in
             
@@ -104,23 +104,23 @@ extension GitHubClient {
             
             if let error = error {
                 print("getStoryContent error:\(error) user:\(user) repo:\(repo) ")
-                completionHandlerForGetStoryContent(success: false, error: error, content: nil)
+                completionHandlerForGetStoryContent(false, error, nil)
                 return
             }
             
             if let content = content {
                 do {
                     // turn into json object
-                    parsedResult = try NSJSONSerialization.JSONObjectWithData(content, options: .AllowFragments)
-                    completionHandlerForGetStoryContent(success: true, error: nil, content: parsedResult)
+                    parsedResult = try JSONSerialization.jsonObject(with: content, options: .allowFragments) as AnyObject
+                    completionHandlerForGetStoryContent(true, nil, parsedResult)
                     return
                 } catch {
-                    completionHandlerForGetStoryContent(success: false, error: Errors.CouldNotConvertToJson, content: nil)
+                    completionHandlerForGetStoryContent(false, Errors.couldNotConvertToJson, nil)
                     return
                 }
             } else {
                 // shouldn't happen if error isn't set
-                completionHandlerForGetStoryContent(success: false, error: Errors.InternalError, content: nil)
+                completionHandlerForGetStoryContent(false, Errors.internalError, nil)
             }
             
         }
@@ -128,7 +128,7 @@ extension GitHubClient {
     
     
     // list stories for author
-    func listStoriesForAuthor(user: String, completionHandlerForListStoriesForAuthor: (success: Bool, error: Errors?, storyNames: [String]?) -> Void) {
+    func listStoriesForAuthor(_ user: String, completionHandlerForListStoriesForAuthor: @escaping (_ success: Bool, _ error: Errors?, _ storyNames: [String]?) -> Void) {
         
         // specify params to look for this author's stories
         var parameters = [String:AnyObject]()
@@ -139,13 +139,13 @@ extension GitHubClient {
             // 3. Send the desired value(s) to completion handler */
             if let error = error {
                 print(error)
-                completionHandlerForListStoriesForAuthor(success: false, error: Errors.NetworkError, storyNames: nil)
+                completionHandlerForListStoriesForAuthor(false, Errors.networkError, nil)
             } else {
                 
                 print("raw result: \(result)")
                 
                 // cast the result into an array of dictionaries
-                if let items = result["items"] as? [[String:AnyObject]] {
+                if let result = result, let items = result["items"] as? [[String:AnyObject]] {
                     
                     var repoNames = [String]()
                     
@@ -154,7 +154,7 @@ extension GitHubClient {
 
                         // if it matched the text within README.md
                         // grab the repository name
-                        if let fname = item["name"] as? String where fname == Constants.TagFileName,
+                        if let fname = item["name"] as? String, fname == Constants.TagFileName,
                            let repo = item["repository"] as? [String:AnyObject],
                            let repoName = repo["name"] as? String {
                             
@@ -163,14 +163,14 @@ extension GitHubClient {
                         }
                     }
                     // success!!!
-                    completionHandlerForListStoriesForAuthor(success: true, error: nil, storyNames: repoNames)
+                    completionHandlerForListStoriesForAuthor(true, nil, repoNames)
                     
                 } else {
                     // something wrong with the response
                     if let result = result as? String {
                         print("something is wrong with the response: \(result)")
                     }
-                    completionHandlerForListStoriesForAuthor(success: false, error: Errors.InvalidResponse, storyNames: nil)
+                    completionHandlerForListStoriesForAuthor(false, Errors.invalidResponse, nil)
                 }
             }
             
@@ -179,21 +179,21 @@ extension GitHubClient {
     
     
     // get story resource (picture, video, ...)
-    func getStoryResource(fileRelativePath: String, author: String, repo: String, completionHandlerForGetStoryResource: (success: Bool, error: Errors?, data: NSData?) -> Void) {
+    func getStoryResource(_ fileRelativePath: String, author: String, repo: String, completionHandlerForGetStoryResource: @escaping (_ success: Bool, _ error: Errors?, _ data: Data?) -> Void) {
         
         getFileContent(fileRelativePath, user: author, repo: repo) { (success, error, content) in
             
             if let error = error {
                 print(error)
-                completionHandlerForGetStoryResource(success: false, error: error, data: nil)
+                completionHandlerForGetStoryResource(false, error, nil)
                 return
             }
             
             if content != nil {
-                completionHandlerForGetStoryResource(success: true, error: nil, data: content)
+                completionHandlerForGetStoryResource(true, nil, content)
             } else {
                 // shouldn't happen if error isn't set
-                completionHandlerForGetStoryResource(success: false, error: Errors.InternalError, data: nil)
+                completionHandlerForGetStoryResource(false, Errors.internalError, nil)
                 return
             }
             
@@ -202,15 +202,15 @@ extension GitHubClient {
 
     
     // get file content
-    func getFileContent(filePath: String, user: String, repo: String, completionHandlerForGetFileContent: (success: Bool, error: Errors?, content: NSData?) -> Void) {
+    func getFileContent(_ filePath: String, user: String, repo: String, completionHandlerForGetFileContent: @escaping (_ success: Bool, _ error: Errors?, _ content: Data?) -> Void) {
         
         var pathOnly: String = ""
         var fileName: String?
         
         // split filename on '/'
-        let fpArray = filePath.componentsSeparatedByString("/")
+        let fpArray = filePath.components(separatedBy: "/")
         if fpArray.count > 1 {
-            pathOnly = "/" + fpArray[0...(fpArray.count-2)].joinWithSeparator("/")
+            pathOnly = "/" + fpArray[0...(fpArray.count-2)].joined(separator: "/")
             fileName = fpArray.last
         } else {
             fileName = filePath
@@ -230,7 +230,7 @@ extension GitHubClient {
             // 3. Send the desired value(s) to completion handler */
             if let error = error {
                 print(error)
-                completionHandlerForGetFileContent(success: false, error: Errors.NetworkError, content: nil)
+                completionHandlerForGetFileContent(false, Errors.networkError, nil)
             } else {
                 
                 // cast the result into an array of dictionaries
@@ -241,26 +241,26 @@ extension GitHubClient {
                         
                         // if we find the file name that we're looking for, it has a valid url, and 
                         // we are able to get its content...
-                        if let fname = file["name"] as? String where fname == fileName,
+                        if let fname = file["name"] as? String, fname == fileName,
                            let contentUrlStr = file["download_url"] as? String,
-                           let contentUrl = NSURL(string: contentUrlStr),
-                           let content = NSData(contentsOfURL: contentUrl) {
+                           let contentUrl = URL(string: contentUrlStr),
+                           let content = try? Data(contentsOf: contentUrl) {
                             
                             // success!!!
-                            completionHandlerForGetFileContent(success: true, error: nil, content: content)
+                            completionHandlerForGetFileContent(true, nil, content)
                             return
                         }
                         //print("didn't find a match: \(file)")
                     }
                     // didn't find the file
-                    completionHandlerForGetFileContent(success: false, error: Errors.FileNotFound, content: nil)
+                    completionHandlerForGetFileContent(false, Errors.fileNotFound, nil)
                 
                 } else {
                     // something wrong with the response
                     if let result = result as? String {
                         print("something is wrong with the response: \(result)")
                     }
-                    completionHandlerForGetFileContent(success: false, error: Errors.FileNotFound, content: nil)
+                    completionHandlerForGetFileContent(false, Errors.fileNotFound, nil)
                 }
             }
             

@@ -22,19 +22,19 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     
     // MARK:  - Properties
-    var fetchedResultsController : NSFetchedResultsController? {
+    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet{
             // Whenever the frc changes, we execute the search and
             // reload the table
             fetchedResultsController?.delegate = self
             executeSearch()
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    init(fetchedResultsController fc : NSFetchedResultsController) {
+    init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>) {
         fetchedResultsController = fc
         super.init(nibName: nil, bundle: nil)
     }
@@ -60,11 +60,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         // Get the stack
-        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let delegate = UIApplication.shared.delegate as! AppDelegate
         let stack = delegate.stack
         
         // Create a fetchrequest
-        let fr = NSFetchRequest(entityName: "Story")
+        let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Story")
         fr.sortDescriptors = []
         
         // Create the FetchedResultsController
@@ -87,7 +87,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // http://stackoverflow.com/questions/21839502/adding-an-activity-indicator-to-the-nav-bar
         // for displaying network activity
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         barButton = UIBarButtonItem(customView: activityIndicator!)
         navigationItem.rightBarButtonItem = nil
         navigationItem.rightBarButtonItem = barButton
@@ -102,11 +102,11 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 0) {
             return "Downloaded"
         } else {
@@ -114,7 +114,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             // downloaded stories
             if let fc = fetchedResultsController, let fo = fc.fetchedObjects {
@@ -132,19 +132,19 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Create the cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("LibraryCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryCell", for: indexPath)
         
         // http://stackoverflow.com/a/1754259
         cell.detailTextLabel?.numberOfLines = 0
-        cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         if (indexPath.section == 0) {
 
             // Get the story
-            let story = fetchedResultsController?.objectAtIndexPath(indexPath) as! Story
+            let story = fetchedResultsController?.object(at: indexPath) as! Story
             
             // Sync Story -> cell
             cell.textLabel?.text = story.name
@@ -164,23 +164,23 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // swipe left options (start)
     // http://stackoverflow.com/a/32586617
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let remove = UITableViewRowAction(style: .Normal, title: "Remove") { action, index in
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let remove = UITableViewRowAction(style: .normal, title: "Remove") { action, index in
             print("remove button tapped")
 
-            self.fetchedResultsController!.managedObjectContext.deleteObject(self.fetchedResultsController!.objectAtIndexPath(indexPath) as! Story)
+            self.fetchedResultsController!.managedObjectContext.delete(self.fetchedResultsController!.object(at: indexPath) as! Story)
             //self.save()
             self.executeSearch()
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.updateAvailableList()
             }
         }
-        remove.backgroundColor = UIColor.redColor()
+        remove.backgroundColor = UIColor.red
         
         return [remove]
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // the cells you would like the actions to appear needs to be editable
         // (allow editing of the rows representing books that have already been downloaded)
         if (indexPath.section == 0) {
@@ -190,21 +190,21 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         // you need to implement this method too or you can't swipe to display the actions
     }
     // swipe left options (end)
     
     // download or read
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
             
             print("read a story")
             
             // create fetch request for the selected story
-            if let story = fetchedResultsController!.objectAtIndexPath(indexPath) as? Story {
+            if let story = fetchedResultsController!.object(at: indexPath) as? Story {
 
-                let fr = NSFetchRequest(entityName: "Chapter")
+                let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Chapter")
                 fr.sortDescriptors = []
                 let pred = NSPredicate(format: "(is_first_chapter = %@) AND (story = %@)", "true", story)
                 fr.predicate = pred
@@ -242,12 +242,12 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func loadRemoteStory(info : GitHubClient.StoryInfo) {
+    func loadRemoteStory(_ info : GitHubClient.StoryInfo) {
         
         networkCallStart()
         GitHubClient.sharedInstance().getStoryContent(info.author, repo: info.repo) { (success, error, content) in
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.networkCallDone()
             }
             
@@ -316,7 +316,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.removeStoryFromAvailableList(info.author, repo: info.repo)
                 
                 // reload the table
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 
@@ -341,7 +341,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.concurrentNetworkCallDone()
             if let error = error {
                 print("error getting all authors: \(error)")
-                if error == GitHubClient.Errors.NetworkError {
+                if error == GitHubClient.Errors.networkError {
                     ControllerCommon.displayErrorDialog(self, message: "Network Error While Getting Author List")
                 }
                 return
@@ -361,7 +361,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                             print("listStoriesForAuthor: \(error)")
                             
                             // seems like bad UX, but...
-                            if error == GitHubClient.Errors.NetworkError {
+                            if error == GitHubClient.Errors.networkError {
                                 ControllerCommon.displayErrorDialog(self, message: "Network Error")
                             }
 
@@ -379,13 +379,13 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                                         print("getStoryInfo: \(error) for author:\(author)/storyName:\(storyName)")
                                         
                                         // seems like bad UX, but...
-                                        if error == GitHubClient.Errors.NetworkError {
+                                        if error == GitHubClient.Errors.networkError {
                                             ControllerCommon.displayErrorDialog(self, message: "Network Error")
                                         }
                                         
                                     } else if let info = info {
                                         // add the new title to the list
-                                        dispatch_async(dispatch_get_main_queue()) {
+                                        DispatchQueue.main.async {
                                             self.allRemoteStories.append(info)
                                             self.updateAvailableList()
                                         }
@@ -423,10 +423,10 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         // exclude from the "availble" list what's not matching the filter
-        if let filter = searchBar.text?.lowercaseString where self.displayedRemoteStories != nil && filter != "" {
+        if let filter = searchBar.text?.lowercased(), self.displayedRemoteStories != nil && filter != "" {
             for remoteStory in self.displayedRemoteStories! {
-                if remoteStory.author.lowercaseString.rangeOfString(filter) == nil &&
-                   remoteStory.title.lowercaseString.rangeOfString(filter) == nil {
+                if remoteStory.author.lowercased().range(of: filter) == nil &&
+                   remoteStory.title.lowercased().range(of: filter) == nil {
                     self.removeStoryFromAvailableList(remoteStory.author, repo: remoteStory.repo)
                 }
             }
@@ -435,15 +435,15 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
     }
     
-    func removeStoryFromAvailableList(author: String, repo: String) {
+    func removeStoryFromAvailableList(_ author: String, repo: String) {
         // http://stackoverflow.com/a/31883396/4611868
         if self.displayedRemoteStories != nil,
-           let ind = self.displayedRemoteStories!.indexOf({$0.author == author && $0.repo == repo}) {
-            self.displayedRemoteStories!.removeAtIndex(ind)
+           let ind = self.displayedRemoteStories!.index(where: {$0.author == author && $0.repo == repo}) {
+            self.displayedRemoteStories!.remove(at: ind)
         }
     }
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         // http://stackoverflow.com/a/32281860/4611868
         // if the view is tapped we can dismiss the keyboard
         if let tapGesture = tapGesture {
@@ -451,14 +451,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         // remove the tap gesture when not editing so we can handle other events again
         if let tapGesture = tapGesture {
             view.removeGestureRecognizer(tapGesture)
         }
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchBar text changed: \(searchBar.text)")
         
         // filter the downloaded list
@@ -476,14 +476,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // when a user presses Search, the keyboard should be dismissed
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
 
     // http://stackoverflow.com/a/32281860/4611868
     // if the view is tapped we can dismiss the keyboard
-    func tap(gesture: UITapGestureRecognizer) {
-        if self.searchBar.isFirstResponder() {
+    func tap(_ gesture: UITapGestureRecognizer) {
+        if self.searchBar.isFirstResponder {
             self.searchBar.resignFirstResponder()
         }
     }
@@ -491,7 +491,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     // started doing network stuff
     func networkCallStart() {
         if self.activityIndicator != nil {
-            self.activityIndicator!.hidden = false
+            self.activityIndicator!.isHidden = false
             self.activityIndicator!.startAnimating()
         }
     }
@@ -499,14 +499,14 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     // stopped doing network stuff
     func networkCallDone() {
         if self.activityIndicator != nil {
-            self.activityIndicator!.hidden = true
+            self.activityIndicator!.isHidden = true
             self.activityIndicator!.stopAnimating()
         }
     }
     
     // track a group of network calls - start
     func concurrentNetworkCallStart() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.concurrentNetworkCalls += 1
             self.networkCallStart()
         }
@@ -514,7 +514,7 @@ class StoriesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     // track a group of network calls - done
     func concurrentNetworkCallDone() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.concurrentNetworkCalls -= 1
             if self.concurrentNetworkCalls < 1 {
                 self.networkCallDone()
