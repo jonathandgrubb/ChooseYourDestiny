@@ -1,14 +1,24 @@
 # ChooseYourDestiny
 Capstone project for iOS Nanodegree from Udacity
 
-Features:
-* Swift 3 (updated from Swift 2.1)
-* Multiple Views
-* Interracts with a Web Service
-* Uses CoreData
+<table border="0">
+  <tr>
+    <td>
+      Features:
+      <ul>
+        <li>Swift 3 (updated from Swift 2.1)</li>
+        <li>Multiple Views</li>
+        <li>Interracts with a Web Service</li>
+        <li>Uses CoreData</li>
+      </ul>
+    </td>
+    <td border="2">
+      <img src="/readme-images/splash.png" />
+    </td>
+  </tr>
+</table>
 
 Description:
-![Splash](/readme-images/splash.png?raw=true "")
 This is a "multiple choice"-type story reading app. The story content is open to any author and is hosted on GitHub. A author must do three things to get their story listed in this app:
 * create a GitHub repo with a README.md containing #ChooseYourDestiny
 * create a story.json file in the root of the repo in the format at https://github.com/jonathandgrubb/PrototypeStory/blob/master/story.json
