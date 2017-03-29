@@ -1,13 +1,13 @@
 # ChooseYourDestiny
 iOS (iPhone) reader for GitHub-hosted multi-choice adventures
 
-(originally a Capstone project for iOS Nanodegree from Udacity)
-
 Features:
 - Swift 3 (updated from Swift 2.1)
 - Multiple Views
-- Interracts with a Web Service
+- Interracts with a Web Service via REST (GitHub's API)
 - Uses CoreData
+
+Controls and Concepts Used: UIActivityIndicatorView, UIImageView, UIStackView, UIScrollView, UITableView, UITableViewCell, UISearchBar,  UITextField, UITextView, UITabBarController, UIAlertController, UINavigationController, NSFetchedResultsController, DispatchQueue
 
 <table>
   <tr>
