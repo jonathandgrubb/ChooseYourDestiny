@@ -31,7 +31,7 @@ This is a "multiple choice"-type story reading app. The story content is open to
     <td>
       <img src="/readme-images/downloaded.png" />
     </td>
-    <td>
+    <td colspan="3">
       <p>
         The reader itself contains a TabView Controller that displays both downloaded and available content on GitHub. A search bar further narrows these results for manageability. 
       </p>
@@ -41,7 +41,7 @@ This is a "multiple choice"-type story reading app. The story content is open to
     <td>
       <img src="/readme-images/remove.png" />
     </td>
-    <td>
+    <td colspan="3">
       <p>
         A swipe to the left also offers the ability to Delete a story from the device. Stories' text and choices for the next chapter are persisted immediately to local storage via CoreData while pictures are lazy loaded (on demand). The pictures themselves are either stored on GitHub as a story "resource" or are hyperlinks to pictures on the web. 
       </p>
@@ -51,7 +51,7 @@ This is a "multiple choice"-type story reading app. The story content is open to
     <td>
       <img src="/readme-images/welcome.png" />
     </td>
-    <td>
+    <td colspan="3">
       <p>
         Starting the app will prompt the user via a modal view to enter their first name if it has never been entered. It will be used to replace [[name]] fields used by the story author (ex. 'High Seas'). Next, in the Stories tab, the app will access the downloaded titles and refresh the list of GitHub titles into a TableView. Clicking an 'available' title will download it to the device. Clicking a 'downloaded' title will start the story in the Reading Tab. 
       </p>
