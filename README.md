@@ -1,5 +1,7 @@
 # ChooseYourDestiny
-Capstone project for iOS Nanodegree from Udacity
+iOS (iPhone) reader for GitHub-hosted multi-choice adventures
+
+(originally a Capstone project for iOS Nanodegree from Udacity)
 
 Features:
 - Swift 3 (updated from Swift 2.1)
