@@ -57,13 +57,23 @@ This is a "multiple choice"-type story reading app. The story content is open to
       </p>
     </td>
   </tr>
+  <tr>
+    <td>
+      <img src="/readme-images/page1.png" />
+    </td>
+    <td>
+      <img src="/readme-images/choices.png" />
+    </td>
+    <td>
+      <img src="/readme-images/next-page.png" />
+    </td>
+    <td>
+      <p>
+        The Reading tab is comprised of the current chapter of the story. The chapters are rendered into a view constructed of a UIImageView (chapter pic - optional), UITextView (chapter text), and TableView (choices for the next chapter - optional), embedded in a StackView, embedded in a ScrollView. Segues to the next chapter use the same ViewController. Loading a new story will pop the NavigationController stack and load chapter 1 of the new story.
+      </p>
+    </td>
+  </tr>
 </table>
-
-
-The Reading tab is comprised of the current chapter of the story. The chapters are rendered into a view constructed of a UIImageView (chapter pic - optional), UITextView (chapter text), and TableView (choices for the next chapter - optional), embedded in a StackView, embedded in a ScrollView. Segues to the next chapter use the same ViewController. Loading a new story will pop the NavigationController stack and load chapter 1 of the new story.
-
-![Page 1](/readme-images/page1.png?raw=true "") ![Choices](/readme-images/choices.png?raw=true "") ![Next Page](/readme-images/next-page.png?raw=true "")
-
 
 Future Plans:
 * remember where the reader is in the story for continuing reading
