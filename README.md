@@ -7,8 +7,6 @@ Features:
 - Interracts with a Web Service via REST (GitHub's API)
 - Uses CoreData
 
-Controls and Concepts Used: UIActivityIndicatorView, UIImageView, UIStackView, UIScrollView, UITableView, UITableViewCell, UISearchBar,  UITextField, UITextView, UITabBarController, UIAlertController, UINavigationController, NSFetchedResultsController, DispatchQueue
-
 <table>
   <tr>
     <td>
@@ -76,6 +74,8 @@ This is a "multiple choice"-type story reading app. The story content is open to
     </td>
   </tr>
 </table>
+
+Controls and Concepts Used: UIActivityIndicatorView, UIImageView, UIStackView, UIScrollView, UITableView, UITableViewCell, UISearchBar,  UITextField, UITextView, UITabBarController, UIAlertController, UINavigationController, NSFetchedResultsController, DispatchQueue
 
 Future Plans:
 * remember where the reader is in the story for continuing reading
